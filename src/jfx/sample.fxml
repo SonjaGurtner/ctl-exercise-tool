@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="461.0" prefWidth="729.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
+            fx:controller="jfx.Controller">
+    <Label fx:id="newA" layoutX="30.0" layoutY="48.0" text="New Automaton">
+        <font>
+            <Font size="14.0"/>
+        </font>
+    </Label>
+    <Button fx:id="automaton4" layoutX="144.0" layoutY="46.0" mnemonicParsing="false" onAction="#generateAutomaton4"
+            prefHeight="25.0" prefWidth="28.0" text="4"/>
+    <Button fx:id="newF" layoutX="25.0" layoutY="87.0" mnemonicParsing="false" onAction="#generateFormula"
+            text="New Formula">
+        <font>
+            <Font size="14.0"/>
+        </font>
+    </Button>
+    <Label fx:id="counterLabel" layoutX="29.0" layoutY="188.0" prefHeight="20.0" prefWidth="129.0"
+           text="Correct Answers: 0">
+        <font>
+            <Font size="14.0"/>
+        </font>
+    </Label>
+    <Button fx:id="checkF" layoutX="25.0" layoutY="137.0" mnemonicParsing="false" onAction="#checkFormula"
+            text="Check Formula">
+        <font>
+            <Font size="14.0"/>
+        </font>
+    </Button>
+    <Label fx:id="formulaLabel" layoutX="30.0" layoutY="231.0" prefHeight="17.0" prefWidth="228.0" text="Formula: ">
+        <font>
+            <Font size="14.0"/>
+        </font>
+    </Label>
+    <CheckBox fx:id="explainBox" layoutX="30.0" layoutY="273.0" mnemonicParsing="false" onAction="#explainFormula"
+              text="Explain">
+        <font>
+            <Font size="13.0"/>
+        </font>
+    </CheckBox>
+    <Label fx:id="explanationLabel" alignment="TOP_LEFT" layoutX="25.0" layoutY="309.0" prefHeight="118.0"
+           prefWidth="394.0"/>
+</AnchorPane>
