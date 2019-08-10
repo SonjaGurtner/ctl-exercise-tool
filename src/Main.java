@@ -1,5 +1,3 @@
-package jfx;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,10 +12,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        final FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
+        final FXMLLoader loader = new FXMLLoader(getClass().getResource("/jfx/sample.fxml"));
         final Parent root = loader.load();
         primaryStage.setTitle("CTL Exercise Tool");
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setScene(new Scene(root, 600, 360));
         primaryStage.show();
     }
 }
