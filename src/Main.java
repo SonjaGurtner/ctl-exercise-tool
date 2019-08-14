@@ -15,7 +15,7 @@ public class Main extends Application {
         final FXMLLoader loader = new FXMLLoader(getClass().getResource("/jfx/sample.fxml"));
         final Parent root = loader.load();
         primaryStage.setTitle("CTL Exercise Tool");
-        primaryStage.setScene(new Scene(root, 600, 360));
+        primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
     }
 }

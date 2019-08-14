@@ -7,12 +7,15 @@ public class State {
 
     private int id;
     private int x, y;
+    private boolean selected;
     private List<Character> labels;
     private List<Transition> transitions;
 
-    State(int x, int y) {
+    State(int id, int x, int y) {
+        this.id = id;
         this.x = x;
         this.y = y;
+        this.selected = false;
     }
 
     public int getX() {
@@ -29,5 +32,13 @@ public class State {
 
     public List<Transition> getTransitions() {
         return transitions;
+    }
+
+    public void changeSelected() {
+        selected = !selected;
+    }
+
+    public boolean isSelected() {
+        return selected;
     }
 }

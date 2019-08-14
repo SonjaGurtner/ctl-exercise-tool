@@ -7,6 +7,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import model.CTL;
 import model.State;
 
@@ -29,6 +31,8 @@ public class Controller {
     private Label newA;
     @FXML
     private Label counterLabel;
+    // helping variables
+    String[] tempExplain;
     @FXML
     private CheckBox explainBox;
     @FXML
@@ -36,6 +40,8 @@ public class Controller {
 
     // The most important part: the Automaton including Formula, States, Transitions and Counter
     private CTL ctl;
+    @FXML
+    private ImageView image;
 
     /* Methods for controlling the CTL Tool */
     @FXML
@@ -61,13 +67,20 @@ public class Controller {
     }
 
     public void explainFormula() {
-        if (explainBox.isSelected()) explanationLabel.setText(ctl.explainFormula());
-        else explanationLabel.setText("");
+        if (!explainBox.isSelected()) {
+            explanationLabel.setText("");
+            image.imageProperty().set(null);
+        }
+        if (!ctl.getFormula().equals("")) {
+            tempExplain = ctl.explainFormula();
+            explanationLabel.setText(tempExplain[0]);
+            image.setImage(new Image(tempExplain[1]));
+        }
     }
 
     public void checkFormula(ActionEvent e) {
         /* TODO */
-        if (ctl.getFormula().equals("") || ctl.getStates().get(0).getTransitions() == null) return;
+        if (ctl.getFormula().equals("")) return;
     }
 
     private void drawAutomaton(int index) {

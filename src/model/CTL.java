@@ -12,10 +12,10 @@ public class CTL {
 
     public CTL() {
         states = new LinkedList<>();
-        states.add(new State(30, 20));
-        states.add(new State(30, 200));
-        states.add(new State(200, 20));
-        states.add(new State(200, 200));
+        states.add(new State(0, 30, 20));
+        states.add(new State(1, 30, 200));
+        states.add(new State(2, 200, 20));
+        states.add(new State(3, 200, 200));
         formula = "";
         counter = 0;
     }
@@ -29,18 +29,20 @@ public class CTL {
         return this.formula;
     }
 
-    public String explainFormula() {
-        if (formula.startsWith("AX")) return Formula.INSTANCE.AX;
-        else if (formula.startsWith("EX")) return Formula.INSTANCE.EX;
-        else if (formula.startsWith("AF")) return Formula.INSTANCE.AF;
-        else if (formula.startsWith("EF")) return Formula.INSTANCE.EF;
-        else if (formula.startsWith("AG")) return Formula.INSTANCE.AG;
+    public String[] explainFormula() {
+        if (formula.contains("X")) {
+            if (formula.startsWith("A")) return Formula.INSTANCE.AX;
+            return Formula.INSTANCE.EX;
+        } else if (formula.contains("F")) {
+            if (formula.startsWith("E")) return Formula.INSTANCE.EF;
+            return Formula.INSTANCE.AF;
+        } else if (formula.startsWith("AG")) return Formula.INSTANCE.AG;
         else if (formula.startsWith("EG")) return Formula.INSTANCE.EG;
-        else if (formula.contains("U")) {
-            if (formula.contains("A")) return Formula.INSTANCE.AU;
-            else return Formula.INSTANCE.EU;
-        } else return "Please generate a Formula first";
+        if (formula.contains("A")) return Formula.INSTANCE.AU;
+        return Formula.INSTANCE.EU;
+
     }
+
 
     public List<State> getStates() {
         return states;

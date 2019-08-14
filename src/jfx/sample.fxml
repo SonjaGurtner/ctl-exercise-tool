@@ -2,6 +2,7 @@
 
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
@@ -44,7 +45,7 @@
         </font>
     </CheckBox>
     <Label fx:id="explanationLabel" alignment="TOP_LEFT" layoutX="23.0" layoutY="284.0" prefHeight="118.0"
-           prefWidth="394.0">
+           prefWidth="362.0">
         <font>
             <Font size="14.0"/>
         </font>
@@ -52,4 +53,6 @@
     <Canvas fx:id="canvas" height="256.0" layoutX="253.0" layoutY="23.0" width="333.0"/>
     <Button fx:id="automaton5" layoutX="180.0" layoutY="28.0" mnemonicParsing="false" onAction="#generateAutomaton5"
             prefHeight="25.0" prefWidth="28.0" text="5"/>
+    <ImageView fx:id="image" fitHeight="145.0" fitWidth="205.0" layoutX="405.0" layoutY="279.0" pickOnBounds="true"
+               preserveRatio="true"/>
 </AnchorPane>
