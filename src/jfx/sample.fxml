@@ -47,7 +47,7 @@
     <Label fx:id="explanationLabel" alignment="TOP_LEFT" layoutX="23.0" layoutY="284.0" prefHeight="118.0"
            prefWidth="362.0">
         <font>
-            <Font size="14.0"/>
+            <Font size="15.0"/>
         </font>
     </Label>
     <Canvas fx:id="canvas" height="256.0" layoutX="253.0" layoutY="23.0" width="333.0"/>

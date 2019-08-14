@@ -31,23 +31,23 @@ public class Controller {
     private Label newA;
     @FXML
     private Label counterLabel;
-    // helping variables
-    String[] tempExplain;
     @FXML
     private CheckBox explainBox;
     @FXML
     private Canvas canvas;
-
-    // The most important part: the Automaton including Formula, States, Transitions and Counter
-    private CTL ctl;
+    // helping fields
+    String[] tempExplain;
     @FXML
     private ImageView image;
+    // The core of the project: the Automaton including Formula, States, Transitions and Counter
+    private CTL ctl;
 
     /* Methods for controlling the CTL Tool */
     @FXML
     public void initialize() {
         ctl = new CTL();
         counterLabel.setText("Correct Answers: " + ctl.getCounter());
+
     }
 
     public void generateAutomaton4(ActionEvent e) {
@@ -64,14 +64,14 @@ public class Controller {
         formulaLabel.setText("Formula: " + ctl.generateFormula());
         explanationLabel.setText("");
         explainBox.setSelected(false);
+        image.imageProperty().set(null);
     }
 
     public void explainFormula() {
         if (!explainBox.isSelected()) {
             explanationLabel.setText("");
             image.imageProperty().set(null);
-        }
-        if (!ctl.getFormula().equals("")) {
+        } else if (!ctl.getFormula().equals("")) {
             tempExplain = ctl.explainFormula();
             explanationLabel.setText(tempExplain[0]);
             image.setImage(new Image(tempExplain[1]));

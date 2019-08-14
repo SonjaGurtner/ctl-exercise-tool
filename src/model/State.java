@@ -41,4 +41,8 @@ public class State {
     public boolean isSelected() {
         return selected;
     }
+
+    public int getId() {
+        return id;
+    }
 }
