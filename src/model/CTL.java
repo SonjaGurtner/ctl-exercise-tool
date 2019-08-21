@@ -12,10 +12,10 @@ public class CTL {
 
     public CTL() {
         states = new LinkedList<>();
-        states.add(new State(0, 30, 20));
-        states.add(new State(1, 30, 200));
-        states.add(new State(2, 200, 20));
-        states.add(new State(3, 200, 200));
+        states.add(new State(0, 40, 20));
+        states.add(new State(1, 40, 240));
+        states.add(new State(2, 240, 20));
+        states.add(new State(3, 240, 240));
         formula = "";
         counter = 0;
     }
@@ -40,9 +40,17 @@ public class CTL {
         else if (formula.startsWith("EG")) return Formula.INSTANCE.EG;
         if (formula.contains("A")) return Formula.INSTANCE.AU;
         return Formula.INSTANCE.EU;
-
     }
 
+    public void createAutomaton(int index) {
+        for (State state : states) {
+            state.generate(index);
+        }
+    }
+
+    public String getLabel(int i) {
+        return states.get(i).getLabels().toString();
+    }
 
     public List<State> getStates() {
         return states;
