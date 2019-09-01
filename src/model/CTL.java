@@ -52,6 +52,10 @@ public class CTL {
         return states.get(i).getLabels().toString();
     }
 
+    public State getState(int i) {
+        return states.get(i);
+    }
+
     public List<State> getStates() {
         return states;
     }

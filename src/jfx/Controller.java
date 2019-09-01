@@ -1,6 +1,7 @@
 package jfx;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -9,8 +10,15 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import model.CTL;
-import model.State;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseListener;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Controller {
     /* all parts of the GUI */
@@ -24,15 +32,22 @@ public class Controller {
     private CheckBox explainBox;
     @FXML
     private Canvas canvas;
-
-    // helping fields
-    String[] tempExplain;
     @FXML
     private ImageView image;
+    private final MouseListener mouseListener = new MouseAdapter() {
+        public void mouseClicked(MouseEvent e) {
+
+        }
+    };
+
     // The core of the project: the Automaton including Formula, States, Transitions and Counter
     private CTL ctl;
-    private StringBuilder builder;
+    @FXML
+    private Circle c0, c1, c2, c3;
     private Label[] stateLabels;
+    // helping fields
+    private String[] tempExplain;
+    private List<Circle> circles;
 
     /* Methods for controlling the CTL Tool */
 
@@ -41,12 +56,20 @@ public class Controller {
         ctl = new CTL();
         counterLabel.setText("Correct Answers: " + ctl.getCounter());
         stateLabels = new Label[]{labelS0, labelS1, labelS2, labelS3};
+        circles = new LinkedList<>();
+        circles.add(c0);
+        circles.add(c1);
+        circles.add(c2);
+        circles.add(c3);
+        for (Circle circle : circles) {
+            circle.setVisible(false);
+        }
     }
 
     public void generateAutomaton4(ActionEvent e) {
         /* TODO generate transitions and labels */
         ctl.createAutomaton(4);
-        drawAutomaton(4);
+        drawAutomaton();
     }
 
     public void generateAutomaton5(ActionEvent e) {
@@ -78,19 +101,44 @@ public class Controller {
         if (ctl.getFormula().equals("")) return;
     }
 
-    private void drawAutomaton(int index) {
+    private void drawAutomaton() {
         /* TODO */
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        /*List<State> temp = CTL.INSTANCE.getStates();
-        for (int i = 0; i < index; i++) {
-            gc.fillOval(temp.get(i).getX(), temp.get(i).getY(), 8, 8);
-        }*/
-        for (State state : ctl.getStates()) {
-            gc.fillOval(state.getX(), state.getY(), 15, 15);
-        }
+        gc.setFill(Color.BLACK);
+
+        c0.setVisible(true);
+        c1.setVisible(true);
+        c2.setVisible(true);
+        c3.setVisible(true);
 
         for (int i = 0; i < stateLabels.length; i++) {
             stateLabels[i].setText(ctl.getLabel(i));
         }
+    }
+
+    public void markState(MouseEvent mouseEvent) {
+        System.out.printf("X koord:" + mouseEvent.getX() + " Y koord: " + mouseEvent.getY() + "\n");
+    }
+}
+
+
+class ClickEvent implements EventHandler<MouseEvent> {
+    private int id;
+    private CTL ctl;
+    private Circle circle;
+
+    public ClickEvent(int id, CTL ctl, Circle circle) {
+        this.id = id;
+        this.ctl = ctl;
+        this.circle = circle;
+    }
+
+    @Override
+    public void handle(MouseEvent event) {
+        double x = event.getX();
+        double y = event.getY();
+        ctl.getState(id).changeSelected();
+        if (circle.getFill() == Color.BLACK) circle.setFill(Color.BLUE);
+        else if (circle.getFill() == Color.BLUE) circle.setFill(Color.BLACK);
     }
 }
