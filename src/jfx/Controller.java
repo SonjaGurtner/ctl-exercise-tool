@@ -111,6 +111,7 @@ public class Controller {
                 if (state.isSelected()) ctl.increaseCounter();
             } else {
                 gc.setFill(Color.RED);
+                if (!state.isSelected()) ctl.increaseCounter();
             }
             gc.fillOval(state.getX(), state.getY(), RADIUS, RADIUS);
 

@@ -65,9 +65,9 @@ public class CTL {
 
     public void checkFormula() {
         if (formula.contains("X")) checkX();
-        //else if(formula.contains("F")) checkF();
-        //else if(formula.contains("G")) checkG();
-        // else checkU();
+        else if (formula.contains("F")) checkF();
+        else if (formula.contains("G")) checkG();
+        else checkU();
     }
 
     private void checkX() {
@@ -92,6 +92,18 @@ public class CTL {
                 }
             }
         }
+    }
+
+    private void checkG() {
+        // TODO
+    }
+
+    private void checkF() {
+        // TODO
+    }
+
+    private void checkU() {
+        // TODO
     }
 
     public String getLabel(int i) {
