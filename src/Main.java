@@ -1,9 +1,10 @@
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -12,15 +13,15 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.CTL;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class Main extends Application {
 
-    // The mainly used font
+    // the mainly used font
     public final Font font = new Font("Calibri", 17);
-    // The core of the project: the Automaton including Formula, States, Transitions and Counter
+    /* The core of the project: the Automaton including Formula, States, Transitions and Counter */
     private CTL ctl;
+
     // all parts of the GUI
     private Pane root;
     private VBox menu;
@@ -42,14 +43,14 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        /*final FXMLLoader loader = new FXMLLoader(getClass().getResource("/jfx/sample.fxml"));
+        final FXMLLoader loader = new FXMLLoader(getClass().getResource("/jfx/sample.fxml"));
         final Parent root = loader.load();
         primaryStage.setTitle("CTL Exercise Tool");
         primaryStage.setScene(new Scene(root, 600, 400));
-        primaryStage.show();*/
-        ctl = new CTL();
-
-        root = new Pane();
+        primaryStage.show();
+        //ctl = new CTL();
+    }
+        /*root = new Pane();
         createMenu();
         Scene scene = new Scene(root, 600, 400);
         primaryStage.setTitle("CTL Exercise Tool");
@@ -156,5 +157,5 @@ public class Main extends Application {
         for (int i = 0; i < stateLabels.length; i++) {
             stateLabels[i].setText(ctl.getLabel(i));
         }
-    }
+    }*/
 }

@@ -4,7 +4,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
@@ -51,19 +50,18 @@
             <Font size="13.0"/>
         </font>
     </Label>
-    <Canvas fx:id="canvas" height="278.0" layoutX="253.0" layoutY="1.0" width="355.0"/>
+    <Canvas fx:id="canvas" height="278.0" layoutX="253.0" layoutY="1.0" onMouseClicked="#markState" width="355.0"/>
     <Button fx:id="automaton5" layoutX="180.0" layoutY="28.0" mnemonicParsing="false" onAction="#generateAutomaton5"
             prefHeight="25.0" prefWidth="28.0" text="5"/>
     <ImageView fx:id="image" fitHeight="127.0" fitWidth="162.0" layoutX="435.0" layoutY="266.0" pickOnBounds="true"
                preserveRatio="true"/>
-    <Label fx:id="labelS0" layoutX="310.0" layoutY="60.0"/>
-    <Label fx:id="labelS1" layoutX="510.0" layoutY="60.0"/>
-    <Label fx:id="labelS2" layoutX="309.0" layoutY="255.0"/>
-    <Label fx:id="labelS3" layoutX="510.0" layoutY="255.0"/>
-    <Circle fx:id="c0" layoutX="300.0" layoutY="60.0" onMouseClicked="#markState" radius="9.0" stroke="BLACK"
-            strokeType="INSIDE"/>
-    <Circle fx:id="c1" layoutX="500.0" layoutY="60.0" onMouseClicked="#markState" radius="9.0" stroke="BLACK"
-            strokeType="INSIDE"/>
-    <Circle fx:id="c2" layoutX="300.0" layoutY="250.0" radius="9.0" stroke="BLACK" strokeType="INSIDE"/>
-    <Circle fx:id="c3" layoutX="500.0" layoutY="250.0" radius="9.0" stroke="BLACK" strokeType="INSIDE"/>
+    <Label fx:id="labelS0_4" layoutX="310.0" layoutY="35.0"/>
+    <Label fx:id="labelS1_4" layoutX="510.0" layoutY="35.0"/>
+    <Label fx:id="labelS2_4" layoutX="309.0" layoutY="255.0"/>
+    <Label fx:id="labelS3_4" layoutX="510.0" layoutY="255.0"/>
+    <Label fx:id="labelS2_5" layoutX="470.0" layoutY="255.0"/>
+    <Label fx:id="labelS1_5" layoutX="510.0" layoutY="125.0"/>
+    <Label fx:id="labelS4_5" layoutX="310.0" layoutY="125.0"/>
+    <Label fx:id="labelS3_5" layoutX="350.0" layoutY="255.0"/>
+    <Label fx:id="labelS0_5" layoutX="405.0" layoutY="35.0"/>
 </AnchorPane>

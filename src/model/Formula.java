@@ -6,7 +6,7 @@ public enum Formula {
     // i chose an Enum for the Formula, because it is easier to handle and doesn't need to be initialised
     INSTANCE;
 
-    // TODO shuffle order of formulas and add some more
+    // TODO eventually add some more
     /* Explanations for the CTL Quantifiers, taken from http://fmv.jku.at/fm/fmslides.pdf
     and the link to the self drawn images for better understanding */
     public final String[] AX = {"AXf -> formula f holds in all immediate successor states\n" +
@@ -28,22 +28,22 @@ public enum Formula {
             "(g has to hold on this trace eventually)\n" +
             "s|=E[fUg] iff ∃π[π(0) = s ∧ ∃i[i≤|π| ∧ π(i)|= g ∧ ∀j[j < i⇒π(j)|=f]]]", "model/EU.png"};
 
-    // possibilities of CTL formulas
-    public final String[] formulas = {"AXp", "AXq", "AXr", "EXp", "EXq", "EXr", "AGp", "AGq", "AGr", "EGp", "EGq", "EGr",
-            "AFp", "AFq", "AFr", "EFp", "EFq", "EFr", "A[p U q]", "A[p U r]", "A[q U p]", "A[q U r]", "A[r U p]",
-            "A[r U q]", "E[p U q]", "E[p U r]", "E[q U p]", "E[q U r]", "E[r U p]", "E[r U q]"};
+    // possibilities of CTL formulas, i mixed up the order for better random selection
+    public final String[] FORMULAS = {"A[q U p]", "E[r U p]", "EXp", "E[r U q]", "AGq", "AXr", "EGp", "A[r U p]", "AFq",
+            "A[p U q]", "AGr", "AFp", "EFq", "A[r U q]", "EGr", "A[q U r]", "EFr", "A[p U r]", "EXq", "E[q U r]", "AXq",
+            "EGq", "EFp", "E[p U q]", "AGp", "AFr", "EXr", "E[q U p]", "AXp", "E[p U r]",};
 
     // possible labels
-    public final char[] labels = {'p', 'q', 'r'};
+    public final char[] LABELS = {'p', 'q', 'r'};
 
     // chooses a random formula from the array
     public String generateFormula() {
         Random r = new Random();
-        return formulas[r.nextInt(formulas.length)];
+        return FORMULAS[r.nextInt(FORMULAS.length)];
     }
 
     public char generateLabel() {
         Random r = new Random();
-        return labels[r.nextInt(labels.length)];
+        return LABELS[r.nextInt(LABELS.length)];
     }
 }
