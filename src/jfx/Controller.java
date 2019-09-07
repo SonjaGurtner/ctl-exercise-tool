@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -19,9 +18,7 @@ import model.Transition;
 import java.util.List;
 
 public class Controller {
-    /* all parts of the GUI */
-    @FXML
-    private Button automaton4, automaton5, newF, checkF;
+    /* important parts of the GUI */
     private final int RADIUS = 20;
     @FXML
     private Label formulaLabel, explanationLabel, counterLabel;
@@ -31,22 +28,21 @@ public class Controller {
     private Canvas canvas;
     @FXML
     private ImageView image;
-
-
-    // The core of the project: the Automaton including Formula, States, Transitions and Counter
-    private CTL ctl;
     @FXML
     private Label labelS0_4, labelS1_4, labelS2_4, labelS3_4, labelS0_5, labelS1_5, labelS2_5, labelS3_5, labelS4_5;
-    private Label[] stateLabels;
+
     // helping fields
     @FXML
     private Circle c0, c1, c2, c3;
     private String[] tempExplain;
     private List<Circle> circles;
     private GraphicsContext gc;
+    private Label[] stateLabels;
+
+    // The core of the project: the Automaton including Formula, States, Transitions and Counter
+    private CTL ctl;
 
     /* Methods for controlling the CTL Tool */
-
     @FXML
     public void initialize() {
         ctl = new CTL();
@@ -101,7 +97,6 @@ public class Controller {
         /* TODO */
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         gc.setFill(Color.BLACK);
-        //gc.setStroke(Color.RED);
 
         //c0.setVisible(true);
         //c1.setVisible(true);
@@ -110,7 +105,6 @@ public class Controller {
 
         for (State state : ctl.getStates()) {
             gc.fillOval(state.getX(), state.getY(), RADIUS, RADIUS);
-            //gc.strokeOval(state.getX(), state.getY(), RADIUS, RADIUS);
             for (Transition transition : state.getTransitions()) {
                 State end = ctl.getState(transition.getEnd());
                 System.out.println(state.getId() + " -> " + end.getId());
@@ -120,7 +114,6 @@ public class Controller {
 
         for (int i = 0; i < stateLabels.length; i++) {
             if (ctl.hasFourStates()) {
-                System.out.println(ctl.getLabel(i));
                 if (i < 4) stateLabels[i].setText(ctl.getLabel(i));
                 else stateLabels[i].setText(" ");
             } else {
@@ -153,7 +146,6 @@ public class Controller {
             if (mouseEvent.getX() >= state.getX() && mouseEvent.getX() <= state.getX() + RADIUS &&
                     mouseEvent.getY() >= state.getY() && mouseEvent.getY() <= state.getY() + RADIUS) {
                 state.changeSelected();
-                System.out.println("State " + state.getId() + ": " + state.isSelected());
                 if (state.isSelected()) {
                     gc.setFill(Color.BLUE);
                     gc.fillOval(state.getX(), state.getY(), RADIUS, RADIUS);
@@ -165,7 +157,6 @@ public class Controller {
         }
     }
 }
-
 
 /*class ClickEvent implements EventHandler<MouseEvent> {
     private int id;

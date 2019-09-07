@@ -16,7 +16,4 @@ public class Transition {
     public int getEnd() {
         return end;
     }
-
-    /*  TODO etc */
-
 }

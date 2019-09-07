@@ -19,6 +19,7 @@ public class Main extends Application {
 
     // the mainly used font
     public final Font font = new Font("Calibri", 17);
+
     /* The core of the project: the Automaton including Formula, States, Transitions and Counter */
     private CTL ctl;
 

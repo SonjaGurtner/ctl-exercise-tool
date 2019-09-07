@@ -7,20 +7,17 @@ public class CTL {
 
     //attributes of the CTL Tool
     private List<State> states;
-    private List<State> states4;
-    private List<State> states5;
     private String formula;
     private int counter;
     private boolean fourStates;
 
     public CTL() {
         states = new LinkedList<>();
-        states.add(new State(0, 40, 20));
+        states.add(new State(0, 40, 20));                       // coordinates for automaton with 4 states
         states.add(new State(1, 240, 20));
         states.add(new State(2, 40, 240));
         states.add(new State(3, 240, 240));
-
-        states.add(new State(0, 135, 20));
+        states.add(new State(0, 135, 20));                      // coordinates for automaton with 5 states
         states.add(new State(1, 240, 110));
         states.add(new State(2, 200, 240));
         states.add(new State(3, 80, 240));

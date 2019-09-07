@@ -6,8 +6,9 @@ public enum Formula {
     // i chose an Enum for the Formula, because it is easier to handle and doesn't need to be initialised
     INSTANCE;
 
-    // TODO eventually add some more
-    /* Explanations for the CTL Quantifiers, taken from http://fmv.jku.at/fm/fmslides.pdf
+    /* TODO eventually add some more */
+
+    /* Explanations for the CTL Quantifiers, taken from http://fmv.jku.at/fm/fmslides.pdf (page 55 ff)
     and the link to the self drawn images for better understanding */
     public final String[] AX = {"AXf -> formula f holds in all immediate successor states\n" +
             "s|=AXf iff ∀π[π(0) = s⇒π(1)|= f]", "model/AX.png"};
@@ -28,7 +29,7 @@ public enum Formula {
             "(g has to hold on this trace eventually)\n" +
             "s|=E[fUg] iff ∃π[π(0) = s ∧ ∃i[i≤|π| ∧ π(i)|= g ∧ ∀j[j < i⇒π(j)|=f]]]", "model/EU.png"};
 
-    // possibilities of CTL formulas, i mixed up the order for better random selection
+    // possibilities of CTL formulas, with mixed up order for better random selection
     public final String[] FORMULAS = {"A[q U p]", "E[r U p]", "EXp", "E[r U q]", "AGq", "AXr", "EGp", "A[r U p]", "AFq",
             "A[p U q]", "AGr", "AFp", "EFq", "A[r U q]", "EGr", "A[q U r]", "EFr", "A[p U r]", "EXq", "E[q U r]", "AXq",
             "EGq", "EFp", "E[p U q]", "AGp", "AFr", "EXr", "E[q U p]", "AXp", "E[p U r]",};
@@ -36,12 +37,13 @@ public enum Formula {
     // possible labels
     public final char[] LABELS = {'p', 'q', 'r'};
 
-    // chooses a random formula from the array
+    // chooses a random formula
     public String generateFormula() {
         Random r = new Random();
         return FORMULAS[r.nextInt(FORMULAS.length)];
     }
 
+    // chooses a random label
     public char generateLabel() {
         Random r = new Random();
         return LABELS[r.nextInt(LABELS.length)];

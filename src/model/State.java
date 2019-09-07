@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-/* TODO  */
 public class State {
 
     private int id;
@@ -18,12 +17,13 @@ public class State {
         this.id = id;
         this.x = x;
         this.y = y;
-        this.selected = false;
+        selected = false;
         labels = new LinkedList<>();
         transitions = new LinkedList<>();
     }
 
     void generate(int index) {
+        selected = false;
         transitions.clear();
         labels.clear();
 
