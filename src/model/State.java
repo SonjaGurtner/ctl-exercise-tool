@@ -10,6 +10,7 @@ public class State {
     private int id;
     private int x, y;
     private boolean selected;
+    private boolean correct;
     private List<Character> labels;
     private List<Transition> transitions;
 
@@ -24,11 +25,12 @@ public class State {
 
     void generate(int index) {
         selected = false;
+        correct = false;
         transitions.clear();
         labels.clear();
 
-        Random r = new Random();                    // random number of transitions
-        Random r2 = new Random();                   // random ending state of transition
+        Random r = new Random();                             // random number of transitions
+        Random r2 = new Random();                            // random ending state of transition
 
         for (int i = 0; i < r.nextInt(index); i++) {
             int i2 = r2.nextInt(index);
@@ -71,5 +73,13 @@ public class State {
 
     public int getId() {
         return id;
+    }
+
+    public boolean isCorrect() {
+        return correct;
+    }
+
+    void setCorrect() {
+        correct = true;
     }
 }

@@ -63,12 +63,43 @@ public class CTL {
         }
     }
 
+    public void checkFormula() {
+        if (formula.contains("X")) checkX();
+        //else if(formula.contains("F")) checkF();
+        //else if(formula.contains("G")) checkG();
+        // else checkU();
+    }
+
+    private void checkX() {
+        char f = formula.split("X")[1].charAt(0);
+
+        if (formula.startsWith("E")) {
+            for (State state : getStates()) {
+                for (Transition transition : state.getTransitions()) {
+                    if (getState(transition.getEnd()).getLabels().contains(f)) {
+                        state.setCorrect();
+                        break;
+                    }
+                }
+            }
+        } else {
+            for (State state : getStates()) {
+                for (Transition transition : state.getTransitions()) {
+                    if (!getState(transition.getEnd()).getLabels().contains(f)) {
+                        break;
+                    }
+                    state.setCorrect();
+                }
+            }
+        }
+    }
+
     public String getLabel(int i) {
         return states.get(i).getLabels().toString();
     }
 
     public State getState(int i) {
-        return states.get(i);
+        return fourStates ? states.get(i) : states.get(i + 4);
     }
 
     public List<State> getStates() {

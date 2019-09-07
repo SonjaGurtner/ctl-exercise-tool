@@ -19,7 +19,7 @@ import java.util.List;
 
 public class Controller {
     /* important parts of the GUI */
-    private final int RADIUS = 20;
+    private final int RADIUS = 25;
     @FXML
     private Label formulaLabel, explanationLabel, counterLabel;
     @FXML
@@ -38,6 +38,8 @@ public class Controller {
     private List<Circle> circles;
     private GraphicsContext gc;
     private Label[] stateLabels;
+    private boolean generated;
+    private boolean justChecked;
 
     // The core of the project: the Automaton including Formula, States, Transitions and Counter
     private CTL ctl;
@@ -46,6 +48,8 @@ public class Controller {
     @FXML
     public void initialize() {
         ctl = new CTL();
+        generated = false;
+        justChecked = false;
         counterLabel.setText("Correct Answers: " + ctl.getCounter());
         stateLabels = new Label[]{labelS0_4, labelS1_4, labelS2_4, labelS3_4, labelS0_5, labelS1_5, labelS2_5,
                 labelS3_5, labelS4_5};
@@ -75,6 +79,9 @@ public class Controller {
         explanationLabel.setText("");
         explainBox.setSelected(false);
         image.imageProperty().set(null);
+        if (justChecked) {
+            drawAutomaton();
+        }
     }
 
     public void explainFormula() {
@@ -90,11 +97,31 @@ public class Controller {
 
     public void checkFormula(ActionEvent e) {
         /* TODO */
-        if (ctl.getFormula().equals("")) return;
+        if (ctl.getFormula().equals("") || !generated) {
+            System.out.println("Kek you tried");
+            return;
+        }
+
+        justChecked = true;
+
+        ctl.checkFormula();
+        for (State state : ctl.getStates()) {
+            if (state.isCorrect()) {
+                gc.setFill(Color.GREEN);
+                if (state.isSelected()) ctl.increaseCounter();
+            } else {
+                gc.setFill(Color.RED);
+            }
+            gc.fillOval(state.getX(), state.getY(), RADIUS, RADIUS);
+
+        }
+        counterLabel.setText("Correct Answers: " + ctl.getCounter());
     }
 
     private void drawAutomaton() {
         /* TODO */
+        generated = true;
+        justChecked = false;
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         gc.setFill(Color.BLACK);
 
@@ -107,7 +134,7 @@ public class Controller {
             gc.fillOval(state.getX(), state.getY(), RADIUS, RADIUS);
             for (Transition transition : state.getTransitions()) {
                 State end = ctl.getState(transition.getEnd());
-                System.out.println(state.getId() + " -> " + end.getId());
+                System.out.println(state.getId() + " -> " + end.getId());       //todo remove
                 //drawPath(state, end);
             }
         }
@@ -122,9 +149,7 @@ public class Controller {
             }
         }
 
-        System.out.println("----------");
-
-
+        System.out.println("----------");  // TODO remove
     }
 
     private void drawPath(State state, State end) {
@@ -142,6 +167,7 @@ public class Controller {
     }
 
     public void markState(MouseEvent mouseEvent) {
+        if (justChecked) return;
         for (State state : ctl.getStates()) {
             if (mouseEvent.getX() >= state.getX() && mouseEvent.getX() <= state.getX() + RADIUS &&
                     mouseEvent.getY() >= state.getY() && mouseEvent.getY() <= state.getY() + RADIUS) {
