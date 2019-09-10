@@ -71,31 +71,53 @@ public class CTL {
     }
 
     private void checkX() {
-        char f = formula.split("X")[1].charAt(0);
+        char f = formula.charAt(2);
+        char quantifier = formula.charAt(0);
 
-        if (formula.startsWith("E")) {
-            for (State state : getStates()) {
-                for (Transition transition : state.getTransitions()) {
+        for (State state : getStates()) {
+            for (Transition transition : state.getTransitions()) {
+                if (quantifier == 'E') {
                     if (getState(transition.getEnd()).getLabels().contains(f)) {
-                        state.setCorrect();
+                        state.setCorrect(true);
                         break;
                     }
-                }
-            }
-        } else {
-            for (State state : getStates()) {
-                for (Transition transition : state.getTransitions()) {
-                    if (!getState(transition.getEnd()).getLabels().contains(f)) {
-                        break;
-                    }
-                    state.setCorrect();
+                } else {
+                    if (!getState(transition.getEnd()).getLabels().contains(f))
+                        state.setCorrect(false);
+                    break;
                 }
             }
         }
     }
 
     private void checkG() {
-        // TODO
+        char f = formula.charAt(2);
+        char quantifier = formula.charAt(0);
+
+        for (State state : getStates()) {
+            for (State s : getStates()) {
+                s.setChecked(false);
+            }
+            state.setCorrect(checkRecursiveG(quantifier, f, state));
+        }
+    }
+
+    private boolean checkRecursiveG(char quantifier, char f, State state) {
+        if (!state.isChecked()) {
+            state.setChecked(true);
+
+            List<Transition> transitions = state.getTransitions();
+            if (transitions.size() == 0) return state.getLabels().contains(f);
+
+            for (Transition transition : transitions) {
+                if (quantifier == 'A') {
+                    if (!checkRecursiveG(quantifier, f, getState(transition.getEnd()))) return false;
+                } else {
+                    if (checkRecursiveG(quantifier, f, getState(transition.getEnd()))) return true;
+                }
+            }
+        }
+        return state.getLabels().contains(f);
     }
 
     private void checkF() {

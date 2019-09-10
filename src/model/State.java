@@ -11,6 +11,7 @@ public class State {
     private int x, y;
     private boolean selected;
     private boolean correct;
+    private boolean checked;
     private List<Character> labels;
     private List<Transition> transitions;
 
@@ -18,14 +19,13 @@ public class State {
         this.id = id;
         this.x = x;
         this.y = y;
-        selected = false;
+        selected = correct = checked = false;
         labels = new LinkedList<>();
         transitions = new LinkedList<>();
     }
 
     void generate(int index) {
-        selected = false;
-        correct = false;
+        selected = correct = checked = false;
         transitions.clear();
         labels.clear();
 
@@ -79,7 +79,15 @@ public class State {
         return correct;
     }
 
-    void setCorrect() {
-        correct = true;
+    public void setCorrect(boolean correct) {
+        this.correct = correct;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 }
