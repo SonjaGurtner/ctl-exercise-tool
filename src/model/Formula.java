@@ -30,9 +30,10 @@ public enum Formula {
             "s|=E[fUg] iff ∃π[π(0) = s ∧ ∃i[i≤|π| ∧ π(i)|= g ∧ ∀j[j < i⇒π(j)|=f]]]", "images/EU.png"};
 
     // possibilities of CTL formulas, with mixed up order for better random selection
-    public final String[] FORMULAS = {"A[q U p]", "E[r U p]", "EXp", "E[r U q]", "AGq", "AXr", "EGp", "A[r U p]", "AFq",
+    /*public final String[] FORMULAS = {"A[q U p]", "E[r U p]", "EXp", "E[r U q]", "AGq", "AXr", "EGp", "A[r U p]", "AFq",
             "A[p U q]", "AGr", "AFp", "EFq", "A[r U q]", "EGr", "A[q U r]", "EFr", "A[p U r]", "EXq", "E[q U r]", "AXq",
-            "EGq", "EFp", "E[p U q]", "AGp", "AFr", "EXr", "E[q U p]", "AXp", "E[p U r]",};
+            "EGq", "EFp", "E[p U q]", "AGp", "AFr", "EXr", "E[q U p]", "AXp", "E[p U r]",};*/
+    public final String[] FORMULAS = {"AGq", "EGp", "AGr", "EGr", "EGq", "AGp"};
 
     // possible labels
     public final char[] LABELS = {'p', 'q', 'r'};
