@@ -103,47 +103,30 @@ public class CTL {
                 s.setChecked(false);
             }
 
-            if (quantifier == 'A') state.setCorrect(checkRecursiveAG(f, state));
-            else {
-                if (state.getTransitions().size() == 0) {
-                    state.setCorrect(state.getLabels().contains(f));
+            state.setCorrect(checkRecursiveG(f, quantifier, state));
+        }
+    }
+
+    private boolean checkRecursiveG(char f, char quantifier, State state) {
+        if (!state.isChecked()) {
+            state.setChecked(true);
+
+            for (int i = 0; i < state.getTransitions().size(); i++) {
+                if (quantifier == 'A') {
+                    if (!checkRecursiveG(f, quantifier, getState(state.getTransitions().get(i).getEnd()))) return false;
                 } else {
-                    state.setChecked(true);
-                    for (Transition transition : state.getTransitions()) {
-                        help = true;
-                        if (checkRecursiveEG(f, getState(transition.getEnd()))) {
-                            state.setCorrect(true);
-                            break;
+                    if (checkRecursiveG(f, quantifier, getState(state.getTransitions().get(i).getEnd()))) {
+                        break;
+                    } else {
+                        if (i == state.getTransitions().size() - 1) {
+                            return false;
                         }
                     }
                 }
             }
         }
-    }
-
-    private boolean checkRecursiveAG(char f, State state) {
-        if (!state.isChecked()) {
-            state.setChecked(true);
-
-            for (Transition transition : state.getTransitions()) {
-                if (!checkRecursiveAG(f, getState(transition.getEnd()))) return false;
-            }
-        }
 
         return state.getLabels().contains(f);
-    }
-
-    private boolean checkRecursiveEG(char f, State state) {
-        if (!state.isChecked()) {
-            state.setChecked(true);
-
-            for (Transition transition : state.getTransitions()) {
-                help = checkRecursiveEG(f, getState(transition.getEnd()));
-            }
-
-        }
-
-        return (help && state.getLabels().contains(f));
     }
 
     private void checkF() {

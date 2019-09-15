@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -45,6 +46,8 @@ public class State {
                 labels.add(l);
             }
         }
+
+        Collections.sort(labels);
     }
 
     public int getX() {
