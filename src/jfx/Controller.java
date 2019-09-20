@@ -34,7 +34,6 @@ public class Controller {
     // helping fields
     @FXML
     private Circle c0, c1, c2, c3;
-    private String[] tempExplain;
     private List<Circle> circles;
     private GraphicsContext gc;
     private Label[] stateLabels;
@@ -89,16 +88,14 @@ public class Controller {
             explanationLabel.setText("");
             image.imageProperty().set(null);
         } else if (!ctl.getFormula().equals("")) {
-            tempExplain = ctl.explainFormula();
+            String[] tempExplain = ctl.explainFormula();
             explanationLabel.setText(tempExplain[0]);
             image.setImage(new Image(tempExplain[1]));
         }
     }
 
     public void checkFormula(ActionEvent e) {
-        /* TODO */
-        if (ctl.getFormula().equals("") || !generated) {
-            System.out.println("Kek you tried");
+        if (ctl.getFormula().equals("") || !generated || justChecked) {
             return;
         }
 
@@ -120,7 +117,6 @@ public class Controller {
     }
 
     private void drawAutomaton() {
-        /* TODO */
         generated = true;
         justChecked = false;
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -184,24 +180,3 @@ public class Controller {
         }
     }
 }
-
-/*class ClickEvent implements EventHandler<MouseEvent> {
-    private int id;
-    private CTL ctl;
-    private Circle circle;
-
-    public ClickEvent(int id, CTL ctl, Circle circle) {
-        this.id = id;
-        this.ctl = ctl;
-        this.circle = circle;
-    }
-
-    @Override
-    public void handle(MouseEvent event) {
-        double x = event.getX();
-        double y = event.getY();
-        ctl.getState(id).changeSelected();
-        if (circle.getFill() == Color.BLACK) circle.setFill(Color.BLUE);
-        else if (circle.getFill() == Color.BLUE) circle.setFill(Color.BLACK);
-    }
-}*/

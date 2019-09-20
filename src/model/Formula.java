@@ -6,8 +6,6 @@ public enum Formula {
     // i chose an Enum for the Formula, because it is easier to handle and doesn't need to be initialised
     INSTANCE;
 
-    /* TODO eventually add some more */
-
     /* Explanations for the CTL Quantifiers, taken from http://fmv.jku.at/fm/fmslides.pdf (page 55 ff)
     and the link to the self drawn images for better understanding */
     public final String[] AX = {"AXf -> formula f holds in all immediate successor states\n" +
@@ -30,12 +28,9 @@ public enum Formula {
             "s|=E[fUg] iff ∃π[π(0) = s ∧ ∃i[i≤|π| ∧ π(i)|= g ∧ ∀j[j < i⇒π(j)|=f]]]", "images/EU.png"};
 
     // possibilities of CTL formulas, with mixed up order for better random selection
-    /*public final String[] FORMULAS = {"A[q U p]", "E[r U p]", "EXp", "E[r U q]", "AGq", "AXr", "EGp", "A[r U p]", "AFq",
+    public final String[] FORMULAS = {"A[q U p]", "E[r U p]", "EXp", "E[r U q]", "AGq", "AXr", "EGp", "A[r U p]", "AFq",
             "A[p U q]", "AGr", "AFp", "EFq", "A[r U q]", "EGr", "A[q U r]", "EFr", "A[p U r]", "EXq", "E[q U r]", "AXq",
-            "EGq", "EFp", "E[p U q]", "AGp", "AFr", "EXr", "E[q U p]", "AXp", "E[p U r]",};*/
-    public final String[] FORMULAS = {"AFq", "EFp", "AFr", "EFr", "EFq", "AFp",
-            "A[q U p]", "A[q U r]", "A[p U q]", "A[p U r]", "A[r U q]", "A[r U p]",
-            "E[q U p]", "E[q U r]", "E[p U q]", "E[p U r]", "E[r U q]", "E[r U p]"};
+            "EGq", "EFp", "E[p U q]", "AGp", "AFr", "EXr", "E[q U p]", "AXp", "E[p U r]",};
 
     // possible labels
     public final char[] LABELS = {'p', 'q', 'r'};

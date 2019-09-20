@@ -50,7 +50,7 @@ public class State {
         Collections.sort(labels);
     }
 
-    public boolean checkTransitionsF(State state) {
+    boolean checkTransitionsF(State state) {
         List<Transition> listT = state.getTransitions();
         if (listT.size() == 0) return true;
         else {

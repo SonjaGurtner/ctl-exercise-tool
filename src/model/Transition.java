@@ -9,7 +9,7 @@ public class Transition {
         this.end = end;
     }
 
-    public int getStart() {
+    int getStart() {
         return start;
     }
 

@@ -11,7 +11,8 @@ public class CTL {
     private int counter;
     private boolean fourStates;
 
-    // auxiliary booleans for checking the formula
+    // auxiliary fields for checking the formula
+    private char quantifier, f;
     private boolean helpF;
     private boolean gFound, gJustFound;
 
@@ -75,8 +76,8 @@ public class CTL {
     }
 
     private void checkX() {
-        char f = formula.charAt(2);
-        char quantifier = formula.charAt(0);
+        f = formula.charAt(2);
+        quantifier = formula.charAt(0);
 
         for (State state : getStates()) {
             for (Transition transition : state.getTransitions()) {
@@ -95,9 +96,9 @@ public class CTL {
     }
 
     private void checkFG() {
-        char quantifier = formula.charAt(0);
+        quantifier = formula.charAt(0);
         char operator = formula.charAt(1);
-        char f = formula.charAt(2);
+        f = formula.charAt(2);
 
         for (State state : getStates()) {
             for (State s : getStates()) {
@@ -141,8 +142,9 @@ public class CTL {
                 for (Transition transition : state.getTransitions()) {
                     helpF = false;
                     if (quantifier == 'E') {
-                        if (checkRecursiveF(f, quantifier, getState(transition.getEnd()), startingState))
+                        if (checkRecursiveF(f, quantifier, getState(transition.getEnd()), startingState)) {
                             return true;
+                        }
                     } else {
                         if (!checkRecursiveF(f, quantifier, getState(transition.getEnd()), startingState)) {
                             return helpF;
@@ -152,9 +154,9 @@ public class CTL {
             }
         }
 
-        if (quantifier == 'E') return state.getLabels().contains(f);
-
-        else {
+        if (quantifier == 'E') {
+            return state.getLabels().contains(f);
+        } else {
             if (state.getLabels().contains(f)) {
                 if (state.getId() == startingState) {
                     helpF = helpF || state.checkTransitionsF(state);
@@ -167,17 +169,15 @@ public class CTL {
     }
 
     private void checkU() {
-        char quantifier = formula.charAt(0);
-        char f = formula.charAt(2);
+        quantifier = formula.charAt(0);
+        f = formula.charAt(2);
         char g = formula.charAt(6);
 
         for (State state : getStates()) {
             for (State s : getStates()) {
                 s.setChecked(false);
             }
-
             gFound = gJustFound = false;
-
             state.setCorrect(checkRecursiveU(quantifier, f, g, state));
         }
     }
@@ -191,8 +191,11 @@ public class CTL {
                 gJustFound = true;
             } else {
                 for (int i = 0; i < state.getTransitions().size(); i++) {
+                    gFound = gJustFound = false;
                     if (quantifier == 'A') {
-                        // TODO
+                        if (!checkRecursiveU(quantifier, f, g, getState(state.getTransitions().get(i).getEnd()))) {
+                            return false;
+                        }
                     } else {
                         if (checkRecursiveU(quantifier, f, g, getState(state.getTransitions().get(i).getEnd()))) {
                             break;
