@@ -5,14 +5,13 @@ import java.util.List;
 
 public class CTL {
 
-    //attributes of the CTL Tool
+    // attributes of the CTL Tool
     private List<State> states;
     private String formula;
     private int counter;
     private boolean fourStates;
 
-    //global boolean for helping with checking formula
-    private boolean help;
+    private boolean helpF;
 
     public CTL() {
         states = new LinkedList<>();
@@ -28,7 +27,7 @@ public class CTL {
         formula = "";
         counter = 0;
         fourStates = false;
-        help = true;
+        helpF = false;
     }
 
     public void increaseCounter() {
@@ -69,9 +68,8 @@ public class CTL {
 
     public void checkFormula() {
         if (formula.contains("X")) checkX();
-        if (formula.contains("U")) checkU();
-        if (formula.contains("G")) checkG();
-        else checkF();
+        else if (formula.contains("U")) checkU();
+        else checkFG();
     }
 
     private void checkX() {
@@ -94,16 +92,19 @@ public class CTL {
         }
     }
 
-    private void checkG() {
-        char f = formula.charAt(2);
+    private void checkFG() {
         char quantifier = formula.charAt(0);
+        char operator = formula.charAt(1);
+        char f = formula.charAt(2);
 
         for (State state : getStates()) {
             for (State s : getStates()) {
                 s.setChecked(false);
             }
 
-            state.setCorrect(checkRecursiveG(f, quantifier, state));
+            if (operator == 'G') state.setCorrect(checkRecursiveG(f, quantifier, state));
+            else state.setCorrect(checkRecursiveF(f, quantifier, state, state.getId()));
+
         }
     }
 
@@ -129,12 +130,61 @@ public class CTL {
         return state.getLabels().contains(f);
     }
 
-    private void checkF() {
-        // TODO
+    private boolean checkRecursiveF(char f, char quantifier, State state, int startingState) {
+        if (!state.isChecked()) {
+            state.setChecked(true);
+
+            if (!state.getLabels().contains(f) || state.getId() == startingState) {
+                helpF = false;
+                for (Transition transition : state.getTransitions()) {
+                    helpF = false;
+                    if (quantifier == 'E') {
+                        if (checkRecursiveF(f, quantifier, getState(transition.getEnd()), startingState))
+                            return true;
+                    } else {
+                        if (!checkRecursiveF(f, quantifier, getState(transition.getEnd()), startingState)) {
+                            return helpF;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (quantifier == 'E') return state.getLabels().contains(f);
+
+        else {
+            if (state.getLabels().contains(f)) {
+                if (state.getId() == startingState) {
+                    helpF = helpF || state.checkTransitionsF(state);
+                } else {
+                    helpF = true;
+                }
+            }
+            return helpF;
+        }
     }
 
     private void checkU() {
-        // TODO
+        char quantifier = formula.charAt(0);
+        char f = formula.charAt(2);
+        char g = formula.charAt(4);
+
+        for (State state : getStates()) {
+            for (State s : getStates()) {
+                s.setChecked(false);
+            }
+
+            state.setCorrect(checkRecursiveU(quantifier, f, g, state));
+        }
+    }
+
+    private boolean checkRecursiveU(char quantifier, char f, char g, State state) {
+        if (!state.isChecked()) {
+            state.setChecked(true);
+
+
+        }
+        return true;
     }
 
     public String getLabel(int i) {
@@ -159,5 +209,13 @@ public class CTL {
 
     public boolean hasFourStates() {
         return fourStates;
+    }
+
+    public List<Transition> getAllTransitions() {
+        List<Transition> allTransitions = new LinkedList<>();
+        for (State state : getStates()) {
+            allTransitions.addAll(state.getTransitions());
+        }
+        return allTransitions;
     }
 }

@@ -33,7 +33,7 @@ public enum Formula {
     /*public final String[] FORMULAS = {"A[q U p]", "E[r U p]", "EXp", "E[r U q]", "AGq", "AXr", "EGp", "A[r U p]", "AFq",
             "A[p U q]", "AGr", "AFp", "EFq", "A[r U q]", "EGr", "A[q U r]", "EFr", "A[p U r]", "EXq", "E[q U r]", "AXq",
             "EGq", "EFp", "E[p U q]", "AGp", "AFr", "EXr", "E[q U p]", "AXp", "E[p U r]",};*/
-    public final String[] FORMULAS = {"AGq", "EGp", "AGr", "EGr", "EGq", "AGp"};
+    public final String[] FORMULAS = {"AFq", "EFp", "AFr", "EFr", "EFq", "AFp"};
 
     // possible labels
     public final char[] LABELS = {'p', 'q', 'r'};

@@ -50,6 +50,17 @@ public class State {
         Collections.sort(labels);
     }
 
+    public boolean checkTransitionsF(State state) {
+        List<Transition> listT = state.getTransitions();
+        if (listT.size() == 0) return true;
+        else {
+            for (Transition t : listT) {
+                if (t.getEnd() == t.getStart()) return true;
+            }
+        }
+        return false;
+    }
+
     public int getX() {
         return x;
     }
@@ -82,15 +93,15 @@ public class State {
         return correct;
     }
 
-    public void setCorrect(boolean correct) {
+    void setCorrect(boolean correct) {
         this.correct = correct;
     }
 
-    public boolean isChecked() {
+    boolean isChecked() {
         return checked;
     }
 
-    public void setChecked(boolean checked) {
+    void setChecked(boolean checked) {
         this.checked = checked;
     }
 }
