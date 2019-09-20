@@ -11,7 +11,9 @@ public class CTL {
     private int counter;
     private boolean fourStates;
 
+    // auxiliary booleans for checking the formula
     private boolean helpF;
+    private boolean gFound, gJustFound;
 
     public CTL() {
         states = new LinkedList<>();
@@ -27,7 +29,7 @@ public class CTL {
         formula = "";
         counter = 0;
         fourStates = false;
-        helpF = false;
+        helpF = gFound = gJustFound = false;
     }
 
     public void increaseCounter() {
@@ -167,12 +169,14 @@ public class CTL {
     private void checkU() {
         char quantifier = formula.charAt(0);
         char f = formula.charAt(2);
-        char g = formula.charAt(4);
+        char g = formula.charAt(6);
 
         for (State state : getStates()) {
             for (State s : getStates()) {
                 s.setChecked(false);
             }
+
+            gFound = gJustFound = false;
 
             state.setCorrect(checkRecursiveU(quantifier, f, g, state));
         }
@@ -182,9 +186,33 @@ public class CTL {
         if (!state.isChecked()) {
             state.setChecked(true);
 
-
+            if (state.getLabels().contains(g)) {
+                gFound = true;
+                gJustFound = true;
+            } else {
+                for (int i = 0; i < state.getTransitions().size(); i++) {
+                    if (quantifier == 'A') {
+                        // TODO
+                    } else {
+                        if (checkRecursiveU(quantifier, f, g, getState(state.getTransitions().get(i).getEnd()))) {
+                            break;
+                        } else {
+                            if (i == state.getTransitions().size() - 1) {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
         }
-        return true;
+
+        if (gJustFound) {
+            gJustFound = false;
+            return state.getLabels().contains(g);
+        } else {
+            if (gFound) return state.getLabels().contains(f);
+            else return false;
+        }
     }
 
     public String getLabel(int i) {
