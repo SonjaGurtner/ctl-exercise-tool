@@ -41,7 +41,7 @@ public class State {
         }
 
         for (int i = 1; i <= r.nextInt(2) + 1; i++) {
-            char l = Formula.INSTANCE.generateLabel();
+            char l = Formula.generateLabel();
             if (!labels.contains(l)) {
                 labels.add(l);
             }

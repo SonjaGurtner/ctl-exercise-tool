@@ -1,5 +1,6 @@
 package model;
 
+import java.text.Normalizer;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,21 +39,12 @@ public class CTL {
     }
 
     public String generateFormula() {
-        this.formula = Formula.INSTANCE.generateFormula();
+        this.formula = Formula.generateFormula();
         return this.formula;
     }
 
-    public String[] explainFormula() {
-        if (formula.contains("X")) {
-            if (formula.startsWith("A")) return Formula.INSTANCE.AX;
-            return Formula.INSTANCE.EX;
-        } else if (formula.contains("F")) {
-            if (formula.startsWith("E")) return Formula.INSTANCE.EF;
-            return Formula.INSTANCE.AF;
-        } else if (formula.startsWith("AG")) return Formula.INSTANCE.AG;
-        else if (formula.startsWith("EG")) return Formula.INSTANCE.EG;
-        if (formula.contains("A")) return Formula.INSTANCE.AU;
-        return Formula.INSTANCE.EU;
+    public Formula explainFormula() {
+        return Formula.explain(formula);
     }
 
     public void createAutomaton(int index) {

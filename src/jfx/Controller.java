@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import model.CTL;
+import model.Formula;
 import model.State;
 import model.Transition;
 
@@ -88,9 +89,9 @@ public class Controller {
             explanationLabel.setText("");
             image.imageProperty().set(null);
         } else if (!ctl.getFormula().equals("")) {
-            String[] tempExplain = ctl.explainFormula();
-            explanationLabel.setText(tempExplain[0]);
-            image.setImage(new Image(tempExplain[1]));
+            Formula tempExplain = ctl.explainFormula();
+            explanationLabel.setText(tempExplain.desc);
+            image.setImage(new Image(tempExplain.img));
         }
     }
 
