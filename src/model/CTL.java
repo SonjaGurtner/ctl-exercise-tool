@@ -1,6 +1,5 @@
 package model;
 
-import java.text.Normalizer;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -206,7 +205,7 @@ public class CTL {
             return state.getLabels().contains(g);
         } else {
             if (gFound) return state.getLabels().contains(f);
-            else return false;
+            else return !state.getLabels().contains(f);
         }
     }
 

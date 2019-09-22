@@ -2,7 +2,10 @@ package model;
 
 import java.util.Random;
 
+// i chose an Enum for the Formula, because it is easier to handle and doesn't need to be initialised
 public enum Formula {
+    /* Explanations for the CTL Quantifiers, taken from http://fmv.jku.at/fm/fmslides.pdf (page 55 ff)
+    and the link to the self drawn images for better understanding */
     AX("AXf -> formula f holds in all immediate successor states\ns|=AXf iff ∀π[π(0) = s⇒π(1)|= f]", "images/AX.png"),
     EX("EXf -> formula f holds in one immediate successor state\n" +
             "s|=EXf iff ∃π[π(0) = s ∧ π(1)|= f]", "images/EX.png"),
@@ -21,17 +24,13 @@ public enum Formula {
             "(g has to hold on this trace eventually)\n" +
             "s|=E[fUg] iff ∃π[π(0) = s ∧ ∃i[i≤|π| ∧ π(i)|= g ∧ ∀j[j < i⇒π(j)|=f]]]", "images/EU.png");
 
-    // i chose an Enum for the Formula, because it is easier to handle and doesn't need to be initialised
     Formula(String desc, String img) {
         this.desc = desc;
         this.img = img;
-    };
+    }
 
     public final String desc;
     public final String img;
-
-    /* Explanations for the CTL Quantifiers, taken from http://fmv.jku.at/fm/fmslides.pdf (page 55 ff)
-    and the link to the self drawn images for better understanding */
 
     // possibilities of CTL formulas, with mixed up order for better random selection
     public static final String[] FORMULAS = {"A[q U p]", "E[r U p]", "EXp", "E[r U q]", "AGq", "AXr", "EGp", "A[r U p]", "AFq",
