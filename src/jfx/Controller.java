@@ -133,7 +133,7 @@ public class Controller {
             for (Transition transition : state.getTransitions()) {
                 State end = ctl.getState(transition.getEnd());
                 System.out.println(state.getId() + " -> " + end.getId());       //todo remove
-                //drawPath(state, end);
+                drawPath(state, end);
             }
         }
 
@@ -142,7 +142,7 @@ public class Controller {
                 if (i < 4) stateLabels[i].setText(ctl.getLabel(i));
                 else stateLabels[i].setText(" ");
             } else {
-                if (i >= 4) stateLabels[i].setText(ctl.getLabel(i));
+                if (i >= 4) stateLabels[i].setText(ctl.getLabel(i - 4));
                 else stateLabels[i].setText(" ");
             }
         }
@@ -150,18 +150,72 @@ public class Controller {
         System.out.println("----------");  // TODO remove
     }
 
-    private void drawPath(State state, State end) {
-        if (state.getId() == end.getId()) {
-            if (state.getId() % 2 == 0) gc.strokeOval(state.getY() + (RADIUS - 5), state.getX() - 7, 10, 10);
-            else gc.strokeOval(state.getY() + (RADIUS - 5), state.getX() + RADIUS + 7, 10, 10);
-        }
+    private void drawPath(State start, State end) {
+        int sx, sy, ex, ey;
+        sx = sy = ex = ey = 0;
 
-        gc.beginPath();
-        float mid = Math.max(state.getX(), end.getX()) - Math.min(state.getX(), end.getX());
-        float mid2 = Math.max(state.getY(), end.getY()) - Math.min(state.getY(), end.getY());
-        gc.quadraticCurveTo(state.getX(), state.getY(), end.getX(), end.getY());
-        gc.closePath();
-        gc.stroke();
+        if (start.getId() == end.getId()) {
+
+        } else {
+            switch (start.getId()) {
+                case 0:
+                    switch (end.getId()) {
+                        case 1:
+                            sx = start.getX() + RADIUS - 3;
+                            sy = start.getY() + 5;
+                            ex = end.getX() + 3;
+                            ey = end.getY() + 5;
+                            break;
+                        case 2:
+
+                            break;
+                        case 3:
+
+                            break;
+                        case 4:
+
+                            break;
+                    }
+                    break;
+                case 1:
+                    switch (end.getId()) {
+                        case 0:
+                            sx = start.getX() + 5;
+                            sy = start.getY() + RADIUS - 5;
+                            ex = end.getX() + RADIUS - 5;
+                            ey = end.getY() + RADIUS - 5;
+                            break;
+                        case 2:
+
+                            break;
+                        case 3:
+
+                            break;
+                        case 4:
+
+                            break;
+                    }
+                    break;
+
+                case 2:
+
+                    break;
+
+                case 3:
+
+                    break;
+                case 4:
+
+                    break;
+            }
+
+            gc.strokeLine(sx, sy, ex, ey);
+            drawArrowHead(sx, sy, ex, ey);
+
+        }
+    }
+
+    private void drawArrowHead(int sx, int sy, int ex, int ey) {
     }
 
     public void markState(MouseEvent mouseEvent) {

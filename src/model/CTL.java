@@ -18,15 +18,11 @@ public class CTL {
 
     public CTL() {
         states = new LinkedList<>();
-        states.add(new State(0, 40, 20));                       // coordinates for automaton with 4 states
+        states.add(new State(0, 40, 20));                       // first 4 states which are always used
         states.add(new State(1, 240, 20));
-        states.add(new State(2, 40, 240));
-        states.add(new State(3, 240, 240));
-        states.add(new State(0, 135, 20));                      // coordinates for automaton with 5 states
-        states.add(new State(1, 240, 110));
-        states.add(new State(2, 200, 240));
-        states.add(new State(3, 80, 240));
-        states.add(new State(4, 40, 110));
+        states.add(new State(2, 240, 240));
+        states.add(new State(3, 40, 240));
+        states.add(new State(4, 40, 110));                     // fifth state
         formula = "";
         counter = 0;
         fourStates = false;
@@ -47,16 +43,22 @@ public class CTL {
     }
 
     public void createAutomaton(int index) {
-        if (index == 4) {
-            fourStates = true;
-            for (int i = 0; i < index; i++) {
-                states.get(i).generate(index);
-            }
-        } else {
+        if (fourStates && index == 5) {
             fourStates = false;
-            for (int i = 4; i < states.size(); i++) {
-                states.get(i).generate(index);
-            }
+            states.get(0).setXY(135, 20);
+            states.get(1).setXY(240, 110);
+            states.get(2).setXY(200, 240);
+            states.get(3).setXY(80, 240);
+        } else if (!fourStates && index == 4) {
+            fourStates = true;
+            states.get(0).setXY(40, 20);
+            states.get(1).setXY(240, 20);
+            states.get(2).setXY(240, 240);
+            states.get(3).setXY(40, 240);
+        }
+
+        for (int i = 0; i < index; i++) {
+            states.get(i).generate(index);
         }
     }
 
@@ -214,11 +216,11 @@ public class CTL {
     }
 
     public State getState(int i) {
-        return fourStates ? states.get(i) : states.get(i + 4);
+        return states.get(i);
     }
 
     public List<State> getStates() {
-        return fourStates ? states.subList(0, 4) : states.subList(4, states.size());
+        return fourStates ? states.subList(0, 4) : states;
     }
 
     public String getFormula() {

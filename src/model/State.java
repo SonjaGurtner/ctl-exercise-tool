@@ -69,6 +69,11 @@ public class State {
         return y;
     }
 
+    public void setXY(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
     List<Character> getLabels() {
         return labels;
     }
