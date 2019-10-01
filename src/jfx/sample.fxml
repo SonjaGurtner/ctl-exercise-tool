@@ -55,9 +55,9 @@
             prefHeight="25.0" prefWidth="28.0" text="5"/>
     <ImageView fx:id="image" fitHeight="127.0" fitWidth="162.0" layoutX="435.0" layoutY="266.0" pickOnBounds="true"
                preserveRatio="true"/>
-    <Label fx:id="labelS0_4" layoutX="315.0" layoutY="40.0"/>
+    <Label fx:id="labelS0_4" layoutX="283.0" layoutY="40.0"/>
     <Label fx:id="labelS1_4" layoutX="515.0" layoutY="40.0"/>
-    <Label fx:id="labelS2_4" layoutX="315.0" layoutY="260.0"/>
+    <Label fx:id="labelS2_4" layoutX="283.0" layoutY="260.0"/>
     <Label fx:id="labelS3_4" layoutX="515.0" layoutY="260.0"/>
     <Label fx:id="labelS2_5" layoutX="475.0" layoutY="260.0"/>
     <Label fx:id="labelS1_5" layoutX="515.0" layoutY="130.0"/>
