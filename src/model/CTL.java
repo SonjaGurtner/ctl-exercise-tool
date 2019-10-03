@@ -234,26 +234,4 @@ public class CTL {
     public boolean hasFourStates() {
         return fourStates;
     }
-
-    public List<Transition> getAllTransitions() {
-        List<Transition> allTransitions = new LinkedList<>();
-        for (State state : getStates()) {
-            allTransitions.addAll(state.getTransitions());
-        }
-        return allTransitions;
-    }
-
-    // TODO remove
-    public void createTest() {
-        fourStates = false;
-        states.get(0).setXY(135, 20);
-        states.get(1).setXY(240, 110);
-        states.get(2).setXY(200, 240);
-        states.get(3).setXY(80, 240);
-
-        states.get(0).setTransition(1);
-        states.get(1).setTransition(0, 4);
-        states.get(4).setTransition(1);
-
-    }
 }

@@ -65,8 +65,7 @@ public class Controller {
     }
 
     public void generateAutomaton5(ActionEvent e) {
-        ctl.createTest();
-        //ctl.createAutomaton(5); //TODO REMOVE
+        ctl.createAutomaton(5);
         drawAutomaton();
     }
 
@@ -128,7 +127,6 @@ public class Controller {
             gc.fillOval(state.getX(), state.getY(), RADIUS, RADIUS);
             for (Transition transition : state.getTransitions()) {
                 State end = ctl.getState(transition.getEnd());
-                System.out.println(state.getId() + " -> " + end.getId());       // TODO remove
                 drawPath(state, end);
             }
         }
@@ -142,8 +140,6 @@ public class Controller {
                 else stateLabels[i].setText(" ");
             }
         }
-
-        System.out.println("----------");  // TODO remove
     }
 
     // marked states are colored blue, unmarked states black
@@ -171,11 +167,11 @@ public class Controller {
 
         if (start.getId() == end.getId()) {
             if (start.getId() == 1 || start.getId() == 2) {
-                sx = start.getX() + RADIUS - 6;
+                sx = start.getX() + RADIUS - 4;
                 sy = start.getY() + 3;
             } else {
                 if (start.getId() == 0 && !ctl.hasFourStates()) {
-                    sx = start.getX() + 3;
+                    sx = start.getX() + 5;
                     sy = start.getY() - 10;
                 } else {
                     sx = start.getX() - 10;
@@ -183,35 +179,35 @@ public class Controller {
                 }
             }
             gc.strokeOval(sx, sy, 15, 15);
-            // drawArrowHeadCircle(sx, sy, start.getId());
+            drawArrowHeadCircle(sx, sy, start.getId());
 
         } else {
             switch (start.getId()) {
                 case 0:
                     switch (end.getId()) {
                         case 1:
-                            sx = start.getX() + RADIUS;
+                            sx = ctl.hasFourStates() ? start.getX() + RADIUS : start.getX() + RADIUS + 1;
                             sy = ctl.hasFourStates() ? start.getY() + 8 : start.getY() + 10;
                             ex = ctl.hasFourStates() ? end.getX() : end.getX() + 5;
-                            ey = ctl.hasFourStates() ? end.getY() + 8 : end.getY();
+                            ey = ctl.hasFourStates() ? end.getY() + 8 : end.getY() - 3;
                             break;
                         case 2:
-                            sx = start.getX() + RADIUS + 3;
-                            sy = start.getY() + RADIUS;
-                            ex = end.getX() + 3;
-                            ey = end.getY() - 3;
+                            sx = ctl.hasFourStates() ? start.getX() + RADIUS + 3 : start.getX() + RADIUS - 3;
+                            sy = ctl.hasFourStates() ? start.getY() + RADIUS : start.getY() + RADIUS + 3;
+                            ex = ctl.hasFourStates() ? end.getX() + 3 : end.getX() + 15;
+                            ey = end.getY() - 5;
                             break;
                         case 3:
-                            sx = start.getX() + RADIUS - 8;
-                            sy = start.getY() + RADIUS;
+                            sx = ctl.hasFourStates() ? start.getX() + RADIUS - 8 : start.getX() + 10;
+                            sy = ctl.hasFourStates() ? start.getY() + RADIUS : start.getY() + RADIUS + 3;
                             ex = end.getX() + RADIUS - 8;
-                            ey = end.getY();
+                            ey = ctl.hasFourStates() ? end.getY() : end.getY() - 5;
                             break;
                         case 4:
-                            sx = start.getX() + 7;
-                            sy = start.getY() + RADIUS - 7;
-                            ex = end.getX() + RADIUS - 7;
-                            ey = end.getY() + 3;
+                            sx = start.getX() - 2;
+                            sy = start.getY() + RADIUS - 5;
+                            ex = end.getX() + RADIUS - 3;
+                            ey = end.getY();
                             break;
                     }
                     break;
@@ -221,17 +217,17 @@ public class Controller {
                         case 0:
                             sx = ctl.hasFourStates() ? start.getX() + 3 : start.getX() - 3;
                             sy = ctl.hasFourStates() ? start.getY() + RADIUS - 8 : start.getY();
-                            ex = end.getX() + RADIUS;
-                            ey = end.getY() + RADIUS - 8;
+                            ex = ctl.hasFourStates() ? end.getX() + RADIUS : end.getX() + RADIUS + 3;
+                            ey = ctl.hasFourStates() ? end.getY() + RADIUS - 8 : end.getY() + RADIUS - 3;
                             break;
                         case 2:
                             sx = start.getX() + RADIUS - 8;
-                            sy = start.getY() + RADIUS;
-                            ex = end.getX() + RADIUS - 8;
+                            sy = ctl.hasFourStates() ? start.getY() + RADIUS : start.getY() + RADIUS + 5;
+                            ex = ctl.hasFourStates() ? end.getX() + RADIUS - 8 : end.getX() + RADIUS - 3;
                             ey = end.getY();
                             break;
                         case 3:
-                            sx = start.getX();
+                            sx = ctl.hasFourStates() ? start.getX() : start.getX() + 3;
                             sy = start.getY() + RADIUS + 3;
                             ex = end.getX() + RADIUS + 5;
                             ey = end.getY();
@@ -248,16 +244,16 @@ public class Controller {
                 case 2:
                     switch (end.getId()) {
                         case 0:
-                            sx = start.getX() - 5;
-                            sy = start.getY();
-                            ex = end.getX() + RADIUS - 5;
+                            sx = ctl.hasFourStates() ? start.getX() - 5 : start.getX() + 10;
+                            sy = ctl.hasFourStates() ? start.getY() + 3 : start.getY() - 3;
+                            ex = ctl.hasFourStates() ? end.getX() + RADIUS - 5 : end.getX() + RADIUS - 8;
                             ey = end.getY() + RADIUS + 3;
                             break;
                         case 1:
-                            sx = start.getX() + 8;
+                            sx = ctl.hasFourStates() ? start.getX() + 8 : start.getX() + RADIUS - 8;
                             sy = start.getY();
-                            ex = end.getX() + 8;
-                            ey = end.getY() + RADIUS;
+                            ex = ctl.hasFourStates() ? end.getX() + 8 : end.getX() + 10;
+                            ey = ctl.hasFourStates() ? end.getY() + RADIUS : end.getY() + RADIUS + 5;
                             break;
                         case 3:
                             sx = start.getX();
@@ -266,7 +262,10 @@ public class Controller {
                             ey = end.getY() + RADIUS - 8;
                             break;
                         case 4:
-
+                            sx = start.getX() + 3;
+                            sy = start.getY() - 5;
+                            ex = end.getX() + RADIUS;
+                            ey = end.getY() + RADIUS;
                             break;
                     }
                     break;
@@ -274,15 +273,15 @@ public class Controller {
                 case 3:
                     switch (end.getId()) {
                         case 0:
-                            sx = start.getX() + 8;
-                            sy = start.getY();
-                            ex = end.getX() + 8;
-                            ey = end.getY() + RADIUS;
+                            sx = ctl.hasFourStates() ? start.getX() + 8 : start.getX() + 10;
+                            sy = ctl.hasFourStates() ? start.getY() : start.getY() - 5;
+                            ex = ctl.hasFourStates() ? end.getX() + 8 : end.getX() + 3;
+                            ey = ctl.hasFourStates() ? end.getY() + RADIUS : end.getY() + RADIUS + 3;
                             break;
                         case 1:
                             sx = start.getX() + RADIUS;
                             sy = start.getY() - 5;
-                            ex = end.getX() - 7;
+                            ex = ctl.hasFourStates() ? end.getX() - 7 : end.getX() - 3;
                             ey = end.getY() + RADIUS;
                             break;
                         case 2:
@@ -292,7 +291,10 @@ public class Controller {
                             ey = end.getY() + 8;
                             break;
                         case 4:
-
+                            sx = start.getX();
+                            sy = start.getY();
+                            ex = end.getX() + 10;
+                            ey = end.getY() + RADIUS + 5;
                             break;
                     }
                     break;
@@ -300,7 +302,10 @@ public class Controller {
                 case 4:
                     switch (end.getId()) {
                         case 0:
-
+                            sx = start.getX() + 12;
+                            sy = start.getY() - 2;
+                            ex = end.getX() - 3;
+                            ey = end.getY() + 10;
                             break;
                         case 1:
                             sx = start.getX() + RADIUS;
@@ -309,10 +314,16 @@ public class Controller {
                             ey = end.getY() + 8;
                             break;
                         case 2:
-
+                            sx = start.getX() + RADIUS - 5;
+                            sy = start.getY() + RADIUS + 5;
+                            ex = end.getX() - 3;
+                            ey = end.getY() - 3;
                             break;
                         case 3:
-
+                            sx = start.getX() + RADIUS - 8;
+                            sy = start.getY() + RADIUS + 5;
+                            ex = end.getX() + 5;
+                            ey = end.getY() - 5;
                             break;
                     }
                     break;
@@ -323,60 +334,45 @@ public class Controller {
         }
     }
 
-    // draws an arrow for showing the direction of the transition
+    /* draws an arrow for showing the direction of the transition
+    calculations for the arrow head taken from https://www.java-forum.org/thema/pfeil-klasse.86645/ */
     private void drawArrowHead(int sx, int sy, int ex, int ey) {
-        int x1, x2, y1, y2;
 
-        if (sy == ey) {
-            x1 = x2 = (sx < ex ? ex - 5 : ex + 5);
-            y1 = ey + 5;
-            y2 = ey - 5;
-        } else if (sx == ex) {
-            x1 = ex - 5;
-            x2 = ex + 5;
-            y1 = y2 = (sy < ey ? ey - 5 : ey + 5);
-        } else if (sx < ex) {
-            x1 = ex - 7;
-            x2 = ex - 2;
-            y1 = sy > ey ? ey + 3 : ey - 3;
-            y2 = sy > ey ? ey + 7 : ey - 7;
-        } else {
-            x1 = ex + 2;
-            x2 = ex + 7;
-            y1 = sy < ey ? ey - 7 : ey + 7;
-            y2 = sy < ey ? ey - 3 : ey + 3;
-        }
+        double arrowX = ex - sx;
+        double arrowY = ey - sy;
+        double aLen = Math.sqrt(arrowX * arrowX + arrowY * arrowY);
 
-        gc.strokeLine(ex, ey, x1, y1);
-        gc.strokeLine(ex, ey, x2, y2);
+        arrowX /= aLen;
+        arrowY /= aLen;
+
+        gc.strokeLine(ex, ey, ex - 10 * arrowX + 5 * arrowY, ey - 10 * arrowY - 5 * arrowX);
+        gc.strokeLine(ex, ey, ex - 10 * arrowX - 5 * arrowY, ey - 10 * arrowY + 5 * arrowX);
+
     }
 
-    // transitions to the same state need special arrowheads
+    // transitions to the same state need smaller arrowheads
     private void drawArrowHeadCircle(int sx, int sy, int id) {
         int x1, x2, x3, y1, y2, y3;
 
         if (id == 0 && !ctl.hasFourStates()) {
-            x1 = sx + 10;
-            x2 = sx + 8;
-            x3 = sx + 13;
-            y1 = sy + 9;
-            y2 = sy + 7;
-            y3 = sy + 12;
+            x1 = sx + 15;
+            x2 = sx + 10;
+            x3 = sx + 20;
+            y1 = sy + 12;
+            y2 = y3 = sy + 7;
         } else {
             if (sx < ctl.getState(id).getX()) {
-                x1 = sx + 9;
-                x2 = sx + 7;
-                x3 = sx + 13;
-                y1 = sy + 9;
-                y2 = sy + 7;
-                y3 = sy + 13;
+                x1 = sx + 11;
+                x2 = x3 = sx + 6;
+                y1 = sy + 14;
+                y2 = sy + 10;
+                y3 = sy + 18;
             } else {
                 x1 = sx + 3;
-                x2 = sx + 5;
-                x3 = sx + 7;
-                y1 = sy + 9;
-                y2 = sy + 5;
-                y3 = sy + 13;
+                x2 = x3 = sx + 7;
+                y1 = sy + 14;
+                y2 = sy + 10;
+                y3 = sy + 18;
             }
         }
 
