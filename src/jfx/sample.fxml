@@ -63,7 +63,9 @@
     <Label fx:id="labelS2_4" layoutX="515.0" layoutY="260.0"/>
     <Label fx:id="labelS2_5" layoutX="475.0" layoutY="260.0"/>
     <Label fx:id="labelS1_5" layoutX="515.0" layoutY="130.0"/>
-    <Label fx:id="labelS4_5" layoutX="300.0" layoutY="130.0"/>
-    <Label fx:id="labelS3_5" layoutX="320.0" layoutY="260.0"/>
-    <Label fx:id="labelS0_5" layoutX="410.0" layoutY="40.0"/>
+    <Label fx:id="labelS4_5" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="265.0" layoutY="130.0"
+           prefHeight="17.0" prefWidth="33.0"/>
+    <Label fx:id="labelS3_5" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="304.0" layoutY="260.0"
+           prefHeight="17.0" prefWidth="33.0"/>
+    <Label fx:id="labelS0_5" layoutX="415.0" layoutY="15.0"/>
 </AnchorPane>

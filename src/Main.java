@@ -54,7 +54,6 @@ public class Main extends Application {
         primaryStage.show();
 
         //ctl = new CTL();
-
         //root = new Pane();
         //createMenu();
         // Scene scene = new Scene(root, 600, 400);

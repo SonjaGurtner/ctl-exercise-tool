@@ -60,13 +60,13 @@ public class Controller {
 
     /* generates a new Automaton with either 4 or 5 states */
     public void generateAutomaton4(ActionEvent e) {
-        ctl.createTest();
-        //ctl.createAutomaton(4); //todo remove
+        ctl.createAutomaton(4);
         drawAutomaton();
     }
 
     public void generateAutomaton5(ActionEvent e) {
-        ctl.createAutomaton(5);
+        ctl.createTest();
+        //ctl.createAutomaton(5); //TODO REMOVE
         drawAutomaton();
     }
 
@@ -191,15 +191,15 @@ public class Controller {
                     switch (end.getId()) {
                         case 1:
                             sx = start.getX() + RADIUS;
-                            sy = start.getY() + 8;
-                            ex = end.getX();
-                            ey = end.getY() + 8;
+                            sy = ctl.hasFourStates() ? start.getY() + 8 : start.getY() + 10;
+                            ex = ctl.hasFourStates() ? end.getX() : end.getX() + 5;
+                            ey = ctl.hasFourStates() ? end.getY() + 8 : end.getY();
                             break;
                         case 2:
                             sx = start.getX() + RADIUS + 3;
                             sy = start.getY() + RADIUS;
                             ex = end.getX() + 3;
-                            ey = end.getY();
+                            ey = end.getY() - 3;
                             break;
                         case 3:
                             sx = start.getX() + RADIUS - 8;
@@ -219,8 +219,8 @@ public class Controller {
                 case 1:
                     switch (end.getId()) {
                         case 0:
-                            sx = start.getX();
-                            sy = start.getY() + RADIUS - 8;
+                            sx = ctl.hasFourStates() ? start.getX() + 3 : start.getX() - 3;
+                            sy = ctl.hasFourStates() ? start.getY() + RADIUS - 8 : start.getY();
                             ex = end.getX() + RADIUS;
                             ey = end.getY() + RADIUS - 8;
                             break;
@@ -237,7 +237,10 @@ public class Controller {
                             ey = end.getY();
                             break;
                         case 4:
-
+                            sx = start.getX();
+                            sy = start.getY() + RADIUS - 8;
+                            ex = end.getX() + RADIUS;
+                            ey = end.getY() + RADIUS - 8;
                             break;
                     }
                     break;
@@ -248,7 +251,7 @@ public class Controller {
                             sx = start.getX() - 5;
                             sy = start.getY();
                             ex = end.getX() + RADIUS - 5;
-                            ey = end.getY() + RADIUS;
+                            ey = end.getY() + RADIUS + 3;
                             break;
                         case 1:
                             sx = start.getX() + 8;
@@ -300,7 +303,10 @@ public class Controller {
 
                             break;
                         case 1:
-
+                            sx = start.getX() + RADIUS;
+                            sy = start.getY() + 8;
+                            ex = end.getX();
+                            ey = end.getY() + 8;
                             break;
                         case 2:
 
