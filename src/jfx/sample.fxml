@@ -55,13 +55,15 @@
             prefHeight="25.0" prefWidth="28.0" text="5"/>
     <ImageView fx:id="image" fitHeight="127.0" fitWidth="162.0" layoutX="435.0" layoutY="266.0" pickOnBounds="true"
                preserveRatio="true"/>
-    <Label fx:id="labelS0_4" layoutX="283.0" layoutY="40.0"/>
+    <Label fx:id="labelS0_4" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="259.0" layoutY="40.0"
+           prefHeight="17.0" prefWidth="33.0"/>
     <Label fx:id="labelS1_4" layoutX="515.0" layoutY="40.0"/>
-    <Label fx:id="labelS2_4" layoutX="283.0" layoutY="260.0"/>
-    <Label fx:id="labelS3_4" layoutX="515.0" layoutY="260.0"/>
+    <Label fx:id="labelS3_4" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="259.0" layoutY="260.0"
+           prefHeight="17.0" prefWidth="33.0"/>
+    <Label fx:id="labelS2_4" layoutX="515.0" layoutY="260.0"/>
     <Label fx:id="labelS2_5" layoutX="475.0" layoutY="260.0"/>
     <Label fx:id="labelS1_5" layoutX="515.0" layoutY="130.0"/>
-    <Label fx:id="labelS4_5" layoutX="315.0" layoutY="130.0"/>
-    <Label fx:id="labelS3_5" layoutX="355.0" layoutY="260.0"/>
+    <Label fx:id="labelS4_5" layoutX="300.0" layoutY="130.0"/>
+    <Label fx:id="labelS3_5" layoutX="320.0" layoutY="260.0"/>
     <Label fx:id="labelS0_5" layoutX="410.0" layoutY="40.0"/>
 </AnchorPane>

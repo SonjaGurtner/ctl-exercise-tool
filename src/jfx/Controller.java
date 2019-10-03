@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -22,7 +23,9 @@ public class Controller {
     // important parts of the GUI
     private final int RADIUS = 25;
     @FXML
-    private Label formulaLabel, explanationLabel, counterLabel;
+    private Button automaton4, automaton5, newF, checkF;
+    @FXML
+    private Label newA, formulaLabel, explanationLabel, counterLabel;
     @FXML
     private CheckBox explainBox;
     @FXML
@@ -44,28 +47,21 @@ public class Controller {
     // The core of the project: the Automaton including Formula, States, Transitions and Counter
     private CTL ctl;
 
-    // Methods for controlling the CTL Tool
     @FXML
     public void initialize() {
         ctl = new CTL();
         generated = false;
         justChecked = false;
+        gc = canvas.getGraphicsContext2D();
         counterLabel.setText("Correct Answers: " + ctl.getCounter());
         stateLabels = new Label[]{labelS0_4, labelS1_4, labelS2_4, labelS3_4, labelS0_5, labelS1_5, labelS2_5,
                 labelS3_5, labelS4_5};
-        /*circles = new LinkedList<>();
-        circles.add(c0);
-        circles.add(c1);
-        circles.add(c2);
-        circles.add(c3);
-        for (Circle circle : circles) {
-            circle.setVisible(false);
-        }*/
-        gc = canvas.getGraphicsContext2D();
     }
 
+    /* generates a new Automaton with either 4 or 5 states */
     public void generateAutomaton4(ActionEvent e) {
-        ctl.createAutomaton(4);
+        ctl.createTest();
+        //ctl.createAutomaton(4); //todo remove
         drawAutomaton();
     }
 
@@ -74,6 +70,7 @@ public class Controller {
         drawAutomaton();
     }
 
+    // generates a random formula and clears the explanation section
     public void generateFormula(ActionEvent e) {
         formulaLabel.setText("Formula: " + ctl.generateFormula());
         explanationLabel.setText("");
@@ -84,6 +81,7 @@ public class Controller {
         }
     }
 
+    // displays the explanation and image
     public void explainFormula() {
         if (!explainBox.isSelected()) {
             explanationLabel.setText("");
@@ -95,6 +93,8 @@ public class Controller {
         }
     }
 
+    /* checks for which states the formula holds
+       counter gets increased for every correct guess (marked & correct / not marked and incorrect */
     public void checkFormula(ActionEvent e) {
         if (ctl.getFormula().equals("") || !generated || justChecked) {
             return;
@@ -117,16 +117,12 @@ public class Controller {
         counterLabel.setText("Correct Answers: " + ctl.getCounter());
     }
 
+    // draws circles for the states to the corresponding coordinates and sets the correct labels
     private void drawAutomaton() {
         generated = true;
         justChecked = false;
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         gc.setFill(Color.BLACK);
-
-        //c0.setVisible(true);
-        //c1.setVisible(true);
-        //c2.setVisible(true);
-        //c3.setVisible(true);
 
         for (State state : ctl.getStates()) {
             gc.fillOval(state.getX(), state.getY(), RADIUS, RADIUS);
@@ -150,6 +146,7 @@ public class Controller {
         System.out.println("----------");  // TODO remove
     }
 
+    // marked states are colored blue, unmarked states black
     public void markState(MouseEvent mouseEvent) {
         if (justChecked) return;
         for (State state : ctl.getStates()) {
@@ -167,58 +164,77 @@ public class Controller {
         }
     }
 
+    // visualizes the transitions by arrows
     private void drawPath(State start, State end) {
         int sx, sy, ex, ey;
         sx = sy = ex = ey = 0;
 
         if (start.getId() == end.getId()) {
             if (start.getId() == 1 || start.getId() == 2) {
-                sx = start.getX() + RADIUS - 4;
-                sy = start.getY() + 5;
+                sx = start.getX() + RADIUS - 6;
+                sy = start.getY() + 3;
             } else {
                 if (start.getId() == 0 && !ctl.hasFourStates()) {
                     sx = start.getX() + 3;
-                    sy = start.getY() - 6;
+                    sy = start.getY() - 10;
                 } else {
-                    sx = start.getX() - 6;
+                    sx = start.getX() - 10;
                     sy = start.getY() + 3;
                 }
             }
-            gc.strokeOval(sx, sy, 10, 10);
+            gc.strokeOval(sx, sy, 15, 15);
+            // drawArrowHeadCircle(sx, sy, start.getId());
+
         } else {
             switch (start.getId()) {
                 case 0:
                     switch (end.getId()) {
                         case 1:
-                            sx = start.getX() + RADIUS - 3;
-                            sy = start.getY() + 7;
-                            ex = end.getX() + 3;
-                            ey = ctl.hasFourStates() ? end.getY() + 7 : end.getY() + 4;
+                            sx = start.getX() + RADIUS;
+                            sy = start.getY() + 8;
+                            ex = end.getX();
+                            ey = end.getY() + 8;
                             break;
                         case 2:
-
+                            sx = start.getX() + RADIUS + 3;
+                            sy = start.getY() + RADIUS;
+                            ex = end.getX() + 3;
+                            ey = end.getY();
                             break;
                         case 3:
-
+                            sx = start.getX() + RADIUS - 8;
+                            sy = start.getY() + RADIUS;
+                            ex = end.getX() + RADIUS - 8;
+                            ey = end.getY();
                             break;
                         case 4:
-
+                            sx = start.getX() + 7;
+                            sy = start.getY() + RADIUS - 7;
+                            ex = end.getX() + RADIUS - 7;
+                            ey = end.getY() + 3;
                             break;
                     }
                     break;
+
                 case 1:
                     switch (end.getId()) {
                         case 0:
-                            sx = start.getX() + 3;
-                            sy = start.getY() + RADIUS - 7;
-                            ex = end.getX() + RADIUS - 3;
-                            ey = end.getY() + RADIUS - 7;
+                            sx = start.getX();
+                            sy = start.getY() + RADIUS - 8;
+                            ex = end.getX() + RADIUS;
+                            ey = end.getY() + RADIUS - 8;
                             break;
                         case 2:
-
+                            sx = start.getX() + RADIUS - 8;
+                            sy = start.getY() + RADIUS;
+                            ex = end.getX() + RADIUS - 8;
+                            ey = end.getY();
                             break;
                         case 3:
-
+                            sx = start.getX();
+                            sy = start.getY() + RADIUS + 3;
+                            ex = end.getX() + RADIUS + 5;
+                            ey = end.getY();
                             break;
                         case 4:
 
@@ -229,13 +245,22 @@ public class Controller {
                 case 2:
                     switch (end.getId()) {
                         case 0:
-
+                            sx = start.getX() - 5;
+                            sy = start.getY();
+                            ex = end.getX() + RADIUS - 5;
+                            ey = end.getY() + RADIUS;
                             break;
                         case 1:
-
+                            sx = start.getX() + 8;
+                            sy = start.getY();
+                            ex = end.getX() + 8;
+                            ey = end.getY() + RADIUS;
                             break;
                         case 3:
-
+                            sx = start.getX();
+                            sy = start.getY() + RADIUS - 8;
+                            ex = end.getX() + RADIUS;
+                            ey = end.getY() + RADIUS - 8;
                             break;
                         case 4:
 
@@ -246,20 +271,29 @@ public class Controller {
                 case 3:
                     switch (end.getId()) {
                         case 0:
-
+                            sx = start.getX() + 8;
+                            sy = start.getY();
+                            ex = end.getX() + 8;
+                            ey = end.getY() + RADIUS;
                             break;
                         case 1:
-
+                            sx = start.getX() + RADIUS;
+                            sy = start.getY() - 5;
+                            ex = end.getX() - 7;
+                            ey = end.getY() + RADIUS;
                             break;
                         case 2:
-
+                            sx = start.getX() + RADIUS;
+                            sy = start.getY() + 8;
+                            ex = end.getX();
+                            ey = end.getY() + 8;
                             break;
                         case 4:
 
                             break;
                     }
-
                     break;
+
                 case 4:
                     switch (end.getId()) {
                         case 0:
@@ -283,8 +317,8 @@ public class Controller {
         }
     }
 
+    // draws an arrow for showing the direction of the transition
     private void drawArrowHead(int sx, int sy, int ex, int ey) {
-        //int x1, x2, x3, y1, y2, y3;
         int x1, x2, y1, y2;
 
         if (sy == ey) {
@@ -296,50 +330,51 @@ public class Controller {
             x2 = ex + 5;
             y1 = y2 = (sy < ey ? ey - 5 : ey + 5);
         } else if (sx < ex) {
-            x1 = ex - 10;
-            x2 = ex - 5;
-            y1 = (sy > ey ? ey + 5 : ey - 5);
-            y2 = (sy > ey ? ey + 10 : ey - 10);
+            x1 = ex - 7;
+            x2 = ex - 2;
+            y1 = sy > ey ? ey + 3 : ey - 3;
+            y2 = sy > ey ? ey + 7 : ey - 7;
         } else {
-            x1 = ex + 5;
-            x2 = ex + 10;
-            y1 = (sy > ey ? ey - 10 : ey - 5);
-            y2 = (sy > ey ? ey - 5 : ey - 10);
+            x1 = ex + 2;
+            x2 = ex + 7;
+            y1 = sy < ey ? ey - 7 : ey + 7;
+            y2 = sy < ey ? ey - 3 : ey + 3;
         }
 
         gc.strokeLine(ex, ey, x1, y1);
         gc.strokeLine(ex, ey, x2, y2);
+    }
 
-        /*if (sy == ey) {
-            x1 = ex;
-            x2 = x3 = (sx < ex ? ex - 5 : ex + 5);
-            y1 = ey;
-            y2 = ey - 5;
-            y3 = ey + 5;
-        } else if (sx == ex) {
-            x1 = ex;
-            x2 = ex - 5;
-            x3 = ex + 5;
-            y1 = ey;
-            y2 = y3 = (sy < ey ? ey - 5 : ey + 5);
-        } else if (sx < ex) {
-            x1 = ex;
-            x2 = (sy < ey ? ex - 3 : ex - 6);
-            x3 = (sy < ey ? ex - 6 : ex - 3);
-            y1 = ey;
-            y2 = ey - 3;
-            y3 = ey + 3;
+    // transitions to the same state need special arrowheads
+    private void drawArrowHeadCircle(int sx, int sy, int id) {
+        int x1, x2, x3, y1, y2, y3;
+
+        if (id == 0 && !ctl.hasFourStates()) {
+            x1 = sx + 10;
+            x2 = sx + 8;
+            x3 = sx + 13;
+            y1 = sy + 9;
+            y2 = sy + 7;
+            y3 = sy + 12;
         } else {
-            x1 = ex;
-            x2 = (sy < ey ? ex + 6 : ex + 3);
-            x3 = (sy < ey ? ex + 3 : ex + 6);
-            y1 = ey;
-            y2 = ey - 3;
-            y3 = ey - 3;
+            if (sx < ctl.getState(id).getX()) {
+                x1 = sx + 9;
+                x2 = sx + 7;
+                x3 = sx + 13;
+                y1 = sy + 9;
+                y2 = sy + 7;
+                y3 = sy + 13;
+            } else {
+                x1 = sx + 3;
+                x2 = sx + 5;
+                x3 = sx + 7;
+                y1 = sy + 9;
+                y2 = sy + 5;
+                y3 = sy + 13;
+            }
         }
 
-        double[] x = new double[]{x1, x2, x3};
-        double[] y = new double[]{y1, y2, y3};
-        gc.fillPolygon(x, y, 3); */
+        gc.strokeLine(x1, y1, x2, y2);
+        gc.strokeLine(x1, y1, x3, y3);
     }
 }

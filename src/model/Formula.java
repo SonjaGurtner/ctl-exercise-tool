@@ -2,7 +2,6 @@ package model;
 
 import java.util.Random;
 
-// i chose an Enum for the Formula, because it is easier to handle and doesn't need to be initialised
 public enum Formula {
     /* Explanations for the CTL Quantifiers, taken from http://fmv.jku.at/fm/fmslides.pdf (page 55 ff)
     and the link to the self drawn images for better understanding */
@@ -52,6 +51,7 @@ public enum Formula {
         return LABELS[r.nextInt(LABELS.length)];
     }
 
+    // returns the corresponding explanation for the quantifier and operator of the formula
     public static Formula explain(String formula) {
         if (formula.contains("X")) {
             if (formula.startsWith("A")) return AX;

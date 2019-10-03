@@ -43,13 +43,13 @@ public class CTL {
     }
 
     public void createAutomaton(int index) {
-        if (fourStates && index == 5) {
+        if (index == 5) {
             fourStates = false;
             states.get(0).setXY(135, 20);
             states.get(1).setXY(240, 110);
             states.get(2).setXY(200, 240);
             states.get(3).setXY(80, 240);
-        } else if (!fourStates && index == 4) {
+        } else {
             fourStates = true;
             states.get(0).setXY(40, 20);
             states.get(1).setXY(240, 20);
@@ -241,5 +241,19 @@ public class CTL {
             allTransitions.addAll(state.getTransitions());
         }
         return allTransitions;
+    }
+
+    // TODO remove
+    public void createTest() {
+        fourStates = true;
+        states.get(0).setXY(40, 20);
+        states.get(1).setXY(240, 20);
+        states.get(2).setXY(240, 240);
+        states.get(3).setXY(40, 240);
+
+        states.get(0).setTransition(1, 2, 3);
+        states.get(1).setTransition(0, 2, 3);
+        states.get(2).setTransition(0, 1, 3);
+        states.get(3).setTransition(0, 1, 2);
     }
 }

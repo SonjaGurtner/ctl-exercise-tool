@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -12,7 +13,9 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.CTL;
+import model.Formula;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Main extends Application {
@@ -49,14 +52,15 @@ public class Main extends Application {
         primaryStage.setTitle("CTL Exercise Tool");
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
+
         //ctl = new CTL();
-    }
-        /*root = new Pane();
-        createMenu();
-        Scene scene = new Scene(root, 600, 400);
-        primaryStage.setTitle("CTL Exercise Tool");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+
+        //root = new Pane();
+        //createMenu();
+        // Scene scene = new Scene(root, 600, 400);
+        //primaryStage.setTitle("CTL Exercise Tool");
+        //primaryStage.setScene(scene);
+        //primaryStage.show();
     }
 
     private void createMenu() {
@@ -141,9 +145,9 @@ public class Main extends Application {
                 explanationLabel.setText("");
                 explainImage.imageProperty().set(null);
             } else if (!ctl.getFormula().equals("")) {
-                tempExplain = ctl.explainFormula();
-                explanationLabel.setText(tempExplain[0]);
-                explainImage.setImage(new Image(tempExplain[1]));
+                Formula f = ctl.explainFormula();
+                explanationLabel.setText(f.desc);
+                explainImage.setImage(new Image(f.img));
             }
         });
     }
@@ -158,5 +162,5 @@ public class Main extends Application {
         for (int i = 0; i < stateLabels.length; i++) {
             stateLabels[i].setText(ctl.getLabel(i));
         }
-    }*/
+    }
 }

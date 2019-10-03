@@ -9,6 +9,7 @@ public class Transition {
         this.end = end;
     }
 
+    // getter for IDs of starting and ending state
     int getStart() {
         return start;
     }
