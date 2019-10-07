@@ -32,11 +32,13 @@ public class State {
 
         Random r = new Random();                             // random number of transitions
         Random r2 = new Random();                            // random ending state of transition
+        int numTransitions = Math.max(r.nextInt(index), 1);
 
-        for (int i = 0; i < r.nextInt(index); i++) {
+        for (int i = 0; i < numTransitions; i++) {
             int i2 = r2.nextInt(index);
             if (transitions.stream().filter(t -> t.getEnd() == i2).collect(Collectors.toList()).size() == 0) {
                 transitions.add(new Transition(id, i2));
+                i--;
             }
         }
 
