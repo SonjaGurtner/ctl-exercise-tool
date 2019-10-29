@@ -7,7 +7,7 @@
 <?import javafx.scene.text.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
-            fx:controller="jfx.Controller">
+            fx:controller="Controller">
     <Label fx:id="newA" layoutX="25.0" layoutY="30.0" text="New Automaton:">
         <font>
             <Font size="14.0"/>
