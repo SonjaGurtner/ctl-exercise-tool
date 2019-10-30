@@ -1,5 +1,9 @@
 CTL Exercise Tool
 =================
+About
+-----
+This is a CTL Exercise Tool for training basic operators and quantifiers of CTL formulas with visual representation of the automaton and solutions.
+
 
 Running
 -------
