@@ -1,3 +1,5 @@
+package main.java;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -9,13 +11,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import model.CTL;
-import model.Formula;
-import model.State;
-import model.Transition;
-
-import java.util.List;
+import main.java.model.CTL;
+import main.java.model.Formula;
+import main.java.model.State;
+import main.java.model.Transition;
 
 public class Controller {
     // important parts of the GUI
@@ -35,8 +34,6 @@ public class Controller {
 
     // helping fields
     @FXML
-    private Circle c0, c1, c2, c3;
-    private List<Circle> circles;
     private GraphicsContext gc;
     private Label[] stateLabels;
     private boolean generated;
@@ -75,6 +72,9 @@ public class Controller {
         image.imageProperty().set(null);
         if (justChecked) {
             drawAutomaton();
+            for (State state : ctl.getStates()) {
+                state.reset();
+            }
         }
     }
 
@@ -101,15 +101,29 @@ public class Controller {
 
         ctl.checkFormula();
         for (State state : ctl.getStates()) {
-            if (state.isCorrect()) {
-                gc.setFill(Color.GREEN);
-                if (state.isSelected()) ctl.increaseCounter();
-            } else {
-                gc.setFill(Color.RED);
-                if (!state.isSelected()) ctl.increaseCounter();
+            float drawX = state.getX();
+            float drawY = state.getY();
+            float rad = RADIUS;
+            if (state.isSelected()) {
+                gc.setFill(Color.BLACK);
+                gc.fillOval(state.getX(), state.getY(), RADIUS, RADIUS);
+                drawX = state.getX() + (RADIUS / 6f);
+                drawY = state.getY() + (RADIUS / 6f);
+                rad = 2 * (RADIUS / 3f);
             }
-            gc.fillOval(state.getX(), state.getY(), RADIUS, RADIUS);
-
+            if (state.isCorrect()) {
+                if (state.isSelected()) {
+                    ctl.increaseCounter();
+                }
+                gc.setFill(Color.GREEN);
+            } else {
+                if (state.isSelected()) {
+                    ctl.increaseCounter();
+                }
+                gc.setFill(Color.RED);
+            }
+            gc.fillOval(drawX, drawY, rad, rad);
+            state.reset();
         }
         counterLabel.setText("Correct Answers: " + ctl.getCounter());
     }

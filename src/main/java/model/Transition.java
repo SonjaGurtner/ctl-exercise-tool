@@ -1,5 +1,4 @@
-package model;
-
+package main.java.model;
 public class Transition {
     private int start;
     private int end;

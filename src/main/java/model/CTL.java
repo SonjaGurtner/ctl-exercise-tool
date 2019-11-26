@@ -1,4 +1,4 @@
-package model;
+package main.java.model;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -12,9 +12,9 @@ public class CTL {
     private boolean fourStates;
 
     // auxiliary fields for checking the formula
-    private char quantifier, f;
-    private boolean helpF;
-    private boolean gFound, gJustFound;
+    private char quantifier, quantifier2, f;
+    private boolean helpF, gFound, gJustFound;
+    private List<State> tree;
 
     public CTL() {
         states = new LinkedList<>();
@@ -27,6 +27,7 @@ public class CTL {
         counter = 0;
         fourStates = false;
         helpF = gFound = gJustFound = false;
+        tree = new LinkedList<>();
     }
 
     public void increaseCounter() {
@@ -63,9 +64,15 @@ public class CTL {
     }
 
     public void checkFormula() {
-        if (formula.contains("X")) checkX();
-        else if (formula.contains("U")) checkU();
-        else checkFG();
+        if (formula.length() == 3) {
+            if (formula.contains("X")) checkX();
+            else checkFG();
+        } else {
+            if (formula.contains("U")) checkU();
+            else if (formula.charAt(1) == 'F') checkNestedF();
+            else if (formula.charAt(1) == 'X') checkNestedX();
+            else checkNestedG();
+        }
     }
 
     private void checkX() {
@@ -88,6 +95,60 @@ public class CTL {
         }
     }
 
+    private void checkU() {
+        quantifier = formula.charAt(0);
+        f = formula.charAt(2);
+        char g = formula.charAt(6);
+
+        for (State state : getStates()) {
+            for (State s : getStates()) {
+                s.setChecked(false);
+            }
+            gFound = gJustFound = false;
+            state.setCorrect(checkRecursiveU(f, g, quantifier, state));
+        }
+    }
+
+    private boolean checkRecursiveU(char f, char g, char quantifier, State state) {
+        if (!state.isChecked()) {
+            state.setChecked(true);
+
+            if (state.getLabels().contains(g)) {
+                gFound = true;
+                gJustFound = true;
+            } else {
+                for (int i = 0; i < state.getTransitions().size(); i++) {
+                    gFound = gJustFound = false;
+                    if (quantifier == 'A') {
+                        if (!checkRecursiveU(quantifier, f, g, getState(state.getTransitions().get(i).getEnd()))) {
+                            return false;
+                        }
+                    } else {
+                        if (checkRecursiveU(quantifier, f, g, getState(state.getTransitions().get(i).getEnd()))) {
+                            break;
+                        } else {
+                            if (i == state.getTransitions().size() - 1) {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if (gJustFound) {
+            gJustFound = false;
+            return state.getLabels().contains(g);
+        } else {
+            if (gFound) return state.getLabels().contains(f);
+            else if (quantifier == 'A') {
+                return !state.getLabels().contains(f);
+            } else {
+                return false;
+            }
+        }
+    }
+
     private void checkFG() {
         quantifier = formula.charAt(0);
         char operator = formula.charAt(1);
@@ -102,28 +163,6 @@ public class CTL {
             else state.setCorrect(checkRecursiveF(f, quantifier, state, state.getId()));
 
         }
-    }
-
-    private boolean checkRecursiveG(char f, char quantifier, State state) {
-        if (!state.isChecked()) {
-            state.setChecked(true);
-
-            for (int i = 0; i < state.getTransitions().size(); i++) {
-                if (quantifier == 'A') {
-                    if (!checkRecursiveG(f, quantifier, getState(state.getTransitions().get(i).getEnd()))) return false;
-                } else {
-                    if (checkRecursiveG(f, quantifier, getState(state.getTransitions().get(i).getEnd()))) {
-                        break;
-                    } else {
-                        if (i == state.getTransitions().size() - 1) {
-                            return false;
-                        }
-                    }
-                }
-            }
-        }
-
-        return state.getLabels().contains(f);
     }
 
     private boolean checkRecursiveF(char f, char quantifier, State state, int startingState) {
@@ -161,53 +200,110 @@ public class CTL {
         }
     }
 
-    private void checkU() {
-        quantifier = formula.charAt(0);
-        f = formula.charAt(2);
-        char g = formula.charAt(6);
-
-        for (State state : getStates()) {
-            for (State s : getStates()) {
-                s.setChecked(false);
-            }
-            gFound = gJustFound = false;
-            state.setCorrect(checkRecursiveU(quantifier, f, g, state));
-        }
-    }
-
-    private boolean checkRecursiveU(char quantifier, char f, char g, State state) {
+    private boolean checkRecursiveG(char f, char quantifier, State state) {
         if (!state.isChecked()) {
             state.setChecked(true);
 
-            if (state.getLabels().contains(g)) {
-                gFound = true;
-                gJustFound = true;
-            } else {
-                for (int i = 0; i < state.getTransitions().size(); i++) {
-                    gFound = gJustFound = false;
-                    if (quantifier == 'A') {
-                        if (!checkRecursiveU(quantifier, f, g, getState(state.getTransitions().get(i).getEnd()))) {
-                            return false;
-                        }
+            for (int i = 0; i < state.getTransitions().size(); i++) {
+                if (quantifier == 'A') {
+                    if (!checkRecursiveG(f, quantifier, getState(state.getTransitions().get(i).getEnd())))
+                        return false;
+                } else {
+                    if (checkRecursiveG(f, quantifier, getState(state.getTransitions().get(i).getEnd()))) {
+                        break;
                     } else {
-                        if (checkRecursiveU(quantifier, f, g, getState(state.getTransitions().get(i).getEnd()))) {
-                            break;
-                        } else {
-                            if (i == state.getTransitions().size() - 1) {
-                                return false;
-                            }
+                        if (i == state.getTransitions().size() - 1) {
+                            return false;
                         }
                     }
                 }
             }
         }
+        return state.getLabels().contains(f);
+    }
 
-        if (gJustFound) {
-            gJustFound = false;
-            return state.getLabels().contains(g);
-        } else {
-            if (gFound) return state.getLabels().contains(f);
-            else return !state.getLabels().contains(f);
+    private void checkNestedF() {
+        quantifier2 = formula.charAt(2);
+        f = formula.charAt(4);
+
+        for (State state : getStates()) {
+            for (State s : getStates()) {
+                s.setChecked(false);
+                s.setTreeVisited(false);
+            }
+
+            tree.clear();
+            makeTreeToList(state);
+
+            for (State ts : tree) {
+                if (checkRecursiveG(f, quantifier2, ts)) {
+                    System.out.println(ts.getId());
+                    state.setCorrect(true);
+                    break;
+                }
+            }
+        }
+    }
+
+    private void checkNestedG() {
+        quantifier2 = formula.charAt(8);
+        System.out.println(quantifier2);
+        f = formula.charAt(3);
+        System.out.println(f);
+        char g = formula.charAt(11);
+        System.out.println(g);
+
+        for (State state : getStates()) {
+            for (State s : getStates()) {
+                s.setChecked(false);
+                s.setTreeVisited(false);
+            }
+
+            tree.clear();
+            makeTreeToList(state);
+            boolean temp = true;
+
+            for (State ts : tree) {
+                if (ts.getLabels().contains(f)) {
+                    if (!checkRecursiveF(g, quantifier2, ts, ts.getId())) {
+                        temp = false;
+                        break;
+                    }
+                }
+            }
+            state.setCorrect(temp);
+        }
+    }
+
+    private void checkNestedX() {
+        f = formula.charAt(4);
+        for (State state : getStates()) {
+
+            for (State s : getStates()) {
+                s.setChecked(false);
+            }
+
+            for (Transition transition : state.getTransitions()) {
+                int end = transition.getEnd();
+                if (checkRecursiveF(f, 'E', getState(end), end)) {
+                    state.setCorrect(true);
+                    break;
+                }
+            }
+        }
+    }
+
+    private void makeTreeToList(State state) {
+        if (!state.isTreeVisited()) {
+            state.setTreeVisited(true);
+
+            List<Transition> transitions = state.getTransitions();
+            for (Transition t : transitions) {
+                if (!tree.contains(getState(t.getEnd()))) tree.add(getState(t.getEnd()));
+            }
+            for (Transition t : transitions) {
+                makeTreeToList(getState(t.getEnd()));
+            }
         }
     }
 

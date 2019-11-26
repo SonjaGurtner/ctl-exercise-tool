@@ -1,4 +1,4 @@
-package model;
+package main.java.model;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -13,13 +13,13 @@ public class State {
     private int x, y;
     private List<Character> labels;
     private List<Transition> transitions;
-    private boolean selected, correct, checked;
+    private boolean selected, correct, checked, treeVisited;
 
     State(int id, int x, int y) {
         this.id = id;
         this.x = x;
         this.y = y;
-        selected = correct = checked = false;
+        selected = correct = checked = treeVisited = false;
         labels = new LinkedList<>();
         transitions = new LinkedList<>();
     }
@@ -48,7 +48,6 @@ public class State {
                 labels.add(l);
             }
         }
-
         Collections.sort(labels);                            // sorting the labels alphabetically
     }
 
@@ -112,5 +111,18 @@ public class State {
 
     void setChecked(boolean checked) {
         this.checked = checked;
+    }
+
+    boolean isTreeVisited() {
+        return treeVisited;
+    }
+
+    void setTreeVisited(boolean visited) {
+        treeVisited = visited;
+    }
+
+    public void reset() {
+        selected = false;
+        correct = false;
     }
 }

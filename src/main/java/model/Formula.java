@@ -1,4 +1,4 @@
-package model;
+package main.java.model;
 
 import java.util.Random;
 
@@ -21,7 +21,27 @@ public enum Formula {
             "s|=A[fUg] iff ∀π[π(0)=s⇒∃i[i≤|π| ∧ π(i)|= g ∧ ∀j[j < i⇒π(j)|=f]]]", "images/AU.png"),
     EU("E[f U g] -> formula f holds potentially until finally g occurs\n" +
             "(g has to hold on this trace eventually)\n" +
-            "s|=E[fUg] iff ∃π[π(0) = s ∧ ∃i[i≤|π| ∧ π(i)|= g ∧ ∀j[j < i⇒π(j)|=f]]]", "images/EU.png");
+            "s|=E[fUg] iff ∃π[π(0) = s ∧ ∃i[i≤|π| ∧ π(i)|= g ∧ ∀j[j < i⇒π(j)|=f]]]", "images/EU.png"),
+    EFEG("EFf -> in one future formula f holds eventually \n" +
+            "s|=EFf iff ∃π[π(0) = s ∧ ∃i[i≤|π| ∧ π(i)|= f]] \n" +
+            "EGf -> in one future formula f holds all the time \n" +
+            "s|=EGf iff ∃π[π(0) = s ∧ ∀i[i≤|π|⇒π(i)|= f]]", "images/EG.png"),
+    EFAG("EFf -> in one future formula f holds eventually \n" +
+            "s|=EFf iff ∃π[π(0) = s ∧ ∃i[i≤|π| ∧ π(i)|= f]] \n" +
+            "AGf -> formula f holds always, in every state\n" +
+            "s |= AGf iff ∀π[π(0) = s ⇒ ∀i[i ≤ |π| ⇒ π(i) |= f ]]", "images/AG.png"),
+    AGEF("AGf -> formula f holds always, in every state\n" +
+            "s |= AGf iff ∀π[π(0) = s ⇒ ∀i[i ≤ |π| ⇒ π(i) |= f ]]\n" +
+            "EFf -> in one future formula f holds eventually \n" +
+            "s|=EFf iff ∃π[π(0) = s ∧ ∃i[i≤|π| ∧ π(i)|= f]]", "images/EF.png"),
+    AGAF("AGf -> formula f holds always, in every state\n" +
+            "s |= AGf iff ∀π[π(0) = s ⇒ ∀i[i ≤ |π| ⇒ π(i) |= f ]]\n" +
+            "AFf -> formula f holds in all possible futures eventually\n" +
+            "s|=AFf iff ∀π[π(0) = s⇒∃i[i≤|π| ∧ π(i)|= f]]", "images/AF.png"),
+    EXEF("EXf -> formula f holds in one immediate successor state\n" +
+            "s|=EXf iff ∃π[π(0) = s ∧ π(1)|= f]\n" +
+            "EFf -> in one future formula f holds eventually \n" +
+            "s|=EFf iff ∃π[π(0) = s ∧ ∃i[i≤|π| ∧ π(i)|= f]]", "images/EF.png");
 
     Formula(String desc, String img) {
         this.desc = desc;
@@ -32,9 +52,10 @@ public enum Formula {
     public final String img;
 
     // possibilities of CTL formulas, with mixed up order for better random selection
-    public static final String[] FORMULAS = {"A[q U p]", "E[r U p]", "EXp", "E[r U q]", "AGq", "AXr", "EGp", "A[r U p]", "AFq",
-            "A[p U q]", "AGr", "AFp", "EFq", "A[r U q]", "EGr", "A[q U r]", "EFr", "A[p U r]", "EXq", "E[q U r]", "AXq",
-            "EGq", "EFp", "E[p U q]", "AGp", "AFr", "EXr", "E[q U p]", "AXp", "E[p U r]",};
+
+    public static final String[] FORMULAS = {"AG(p -> EFq)"};
+
+    //public static final String[] FORMULAS = {"AG(p -> AFq)", };
 
     // possible labels
     public static final char[] LABELS = {'p', 'q', 'r'};
@@ -54,14 +75,27 @@ public enum Formula {
     // returns the corresponding explanation for the quantifier and operator of the formula
     public static Formula explain(String formula) {
         if (formula.contains("X")) {
-            if (formula.startsWith("A")) return AX;
+            if (formula.length() > 3) return EXEF;
+            else if (formula.startsWith("A")) return AX;
             return EX;
-        } else if (formula.contains("F")) {
-            if (formula.startsWith("E")) return EF;
-            return AF;
-        } else if (formula.startsWith("AG")) return AG;
-        else if (formula.startsWith("EG")) return EG;
-        if (formula.contains("A")) return AU;
-        return EU;
+        } else if (formula.contains("U")) {
+            return formula.charAt(0) == 'E' ? EU : AU;
+        } else if (formula.length() == 3) {
+            if (formula.contains("F")) {
+                if (formula.contains("A")) return AF;
+                else return EF;
+            } else {
+                if (formula.contains("A")) return AG;
+                else return EG;
+            }
+        } else {
+            if (formula.charAt(1) == 'F') {
+                if (formula.charAt(2) == 'A') return EFAG;
+                else return EFEG;
+            } else {
+                if (formula.charAt(8) == 'E') return AGEF;
+                else return AGAF;
+            }
+        }
     }
 }

@@ -7,7 +7,7 @@
 <?import javafx.scene.text.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
-            fx:controller="Controller">
+            fx:controller="main.java.Controller">
     <Label fx:id="newA" layoutX="25.0" layoutY="30.0" text="New Automaton:">
         <font>
             <Font size="14.0"/>
@@ -38,8 +38,8 @@
             <Font size="14.0"/>
         </font>
     </Label>
-    <CheckBox fx:id="explainBox" layoutX="23.0" layoutY="248.0" mnemonicParsing="false" onAction="#explainFormula"
-              prefHeight="0.0" prefWidth="69.0" text="Explain">
+    <CheckBox fx:id="explainBox" layoutX="23.0" layoutY="248.0" minHeight="-Infinity" minWidth="-Infinity"
+              mnemonicParsing="false" onAction="#explainFormula" prefHeight="25.0" prefWidth="75.0" text="Explain">
         <font>
             <Font size="14.0"/>
         </font>
