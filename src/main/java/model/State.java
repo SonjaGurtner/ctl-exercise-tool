@@ -1,9 +1,6 @@
 package main.java.model;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class State {
@@ -26,7 +23,7 @@ public class State {
 
     // generates a new Automaton by generating new Labels and Transitions
     void generate(int index) {
-        selected = correct = checked = false;
+        selected = correct = checked = treeVisited = false;
         transitions.clear();
         labels.clear();
 
@@ -48,6 +45,7 @@ public class State {
                 labels.add(l);
             }
         }
+
         Collections.sort(labels);                            // sorting the labels alphabetically
     }
 
@@ -124,5 +122,12 @@ public class State {
     public void reset() {
         selected = false;
         correct = false;
+    }
+
+
+    // TODO REMOVE
+    public void setupForTest(List<Transition> transitions, Character... labelsss) {
+        this.transitions = transitions;
+        this.labels = Arrays.asList(labelsss);
     }
 }

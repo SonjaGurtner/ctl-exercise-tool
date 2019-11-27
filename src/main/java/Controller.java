@@ -70,11 +70,11 @@ public class Controller {
         explanationLabel.setText("");
         explainBox.setSelected(false);
         image.imageProperty().set(null);
-        if (justChecked) {
+        if (justChecked || generated) {
             drawAutomaton();
-            for (State state : ctl.getStates()) {
-                state.reset();
-            }
+        }
+        for (State state : ctl.getStates()) {
+            state.reset();
         }
     }
 
@@ -117,13 +117,12 @@ public class Controller {
                 }
                 gc.setFill(Color.GREEN);
             } else {
-                if (state.isSelected()) {
+                if (!state.isSelected()) {
                     ctl.increaseCounter();
                 }
                 gc.setFill(Color.RED);
             }
             gc.fillOval(drawX, drawY, rad, rad);
-            state.reset();
         }
         counterLabel.setText("Correct Answers: " + ctl.getCounter());
     }

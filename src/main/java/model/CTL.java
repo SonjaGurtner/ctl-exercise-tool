@@ -80,6 +80,7 @@ public class CTL {
         quantifier = formula.charAt(0);
 
         for (State state : getStates()) {
+            boolean help = true;
             for (Transition transition : state.getTransitions()) {
                 if (quantifier == 'E') {
                     if (getState(transition.getEnd()).getLabels().contains(f)) {
@@ -87,11 +88,13 @@ public class CTL {
                         break;
                     }
                 } else {
-                    if (!getState(transition.getEnd()).getLabels().contains(f))
-                        state.setCorrect(false);
-                    break;
+                    if (!getState(transition.getEnd()).getLabels().contains(f)) {
+                        help = false;
+                        break;
+                    }
                 }
             }
+            if (quantifier == 'A' && help) state.setCorrect(true);
         }
     }
 
@@ -120,11 +123,11 @@ public class CTL {
                 for (int i = 0; i < state.getTransitions().size(); i++) {
                     gFound = gJustFound = false;
                     if (quantifier == 'A') {
-                        if (!checkRecursiveU(quantifier, f, g, getState(state.getTransitions().get(i).getEnd()))) {
+                        if (!checkRecursiveU(f, g, quantifier, getState(state.getTransitions().get(i).getEnd()))) {
                             return false;
                         }
                     } else {
-                        if (checkRecursiveU(quantifier, f, g, getState(state.getTransitions().get(i).getEnd()))) {
+                        if (checkRecursiveU(f, g, quantifier, getState(state.getTransitions().get(i).getEnd()))) {
                             break;
                         } else {
                             if (i == state.getTransitions().size() - 1) {
@@ -140,11 +143,14 @@ public class CTL {
             gJustFound = false;
             return state.getLabels().contains(g);
         } else {
-            if (gFound) return state.getLabels().contains(f);
-            else if (quantifier == 'A') {
-                return !state.getLabels().contains(f);
+            if (gFound) {
+                return state.getLabels().contains(f);
             } else {
-                return false;
+                if (quantifier == 'A') {
+                    return !state.getLabels().contains(f);
+                } else {
+                    return false;
+                }
             }
         }
     }
@@ -236,6 +242,10 @@ public class CTL {
             makeTreeToList(state);
 
             for (State ts : tree) {
+                for (State t : tree) {
+                    t.setChecked(false);
+                }
+
                 if (checkRecursiveG(f, quantifier2, ts)) {
                     System.out.println(ts.getId());
                     state.setCorrect(true);
@@ -247,11 +257,8 @@ public class CTL {
 
     private void checkNestedG() {
         quantifier2 = formula.charAt(8);
-        System.out.println(quantifier2);
         f = formula.charAt(3);
-        System.out.println(f);
-        char g = formula.charAt(11);
-        System.out.println(g);
+        char g = formula.charAt(10);
 
         for (State state : getStates()) {
             for (State s : getStates()) {
@@ -262,8 +269,11 @@ public class CTL {
             tree.clear();
             makeTreeToList(state);
             boolean temp = true;
-
             for (State ts : tree) {
+                for (State t : tree) {
+                    t.setChecked(false);
+                }
+
                 if (ts.getLabels().contains(f)) {
                     if (!checkRecursiveF(g, quantifier2, ts, ts.getId())) {
                         temp = false;
@@ -294,6 +304,8 @@ public class CTL {
     }
 
     private void makeTreeToList(State state) {
+        if (!tree.contains(state)) tree.add(state);
+
         if (!state.isTreeVisited()) {
             state.setTreeVisited(true);
 
@@ -329,5 +341,10 @@ public class CTL {
 
     public boolean hasFourStates() {
         return fourStates;
+    }
+
+    // TODO REMOVE
+    public void setFormula(String formula) {
+        this.formula = formula;
     }
 }
