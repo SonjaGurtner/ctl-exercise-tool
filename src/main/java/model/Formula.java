@@ -56,11 +56,6 @@ public enum Formula {
             "EXq", "A[q U r]", "EFr", "A[r U p]", "AXp", "EXr", "AG(p -> EFq)", "AXq", "AFp", "EFq", "EGq", "E[p U r]",
             "EFEGp", "EFAGp", "EFAGq", "AFr", "EXEFp", "EGp", "AG(p -> EFr)"};
 
-    /*public static final String[] FORMULAS = {"AGr", "AGp", "E[q U p]", "E[r U q]", "EXEFr", "AG(p -> AFq)", "A[p U q]",
-            "EXq", "A[q U r]", "EFr", "A[r U p]", "AXp", "EXr", "AG(p -> EFq)", "AXq", "AFp", "EFq", "EGq", "E[p U r]",
-            "EFEGp", "EFAGp", "EFAGq", "AFr", "EXEFp", "EGp", "AG(p -> EFr)"}; */
-
-
     // possible labels
     public static final char[] LABELS = {'p', 'q', 'r'};
 

@@ -4,7 +4,7 @@ public class Transition {
     private int start;
     private int end;
 
-    public Transition(int start, int end) {
+    Transition(int start, int end) {
         this.start = start;
         this.end = end;
     }
