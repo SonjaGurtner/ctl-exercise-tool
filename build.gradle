@@ -3,15 +3,12 @@ buildscript {
         mavenLocal()
         mavenCentral()
     }
-    dependencies {
-        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.1.0'
-    }
 }
 
 plugins {
-  id 'application'
-  id 'org.openjfx.javafxplugin' version '0.0.8'
-  id 'com.github.johnrengelman.shadow' version '5.1.0'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.8'
+    id 'com.github.johnrengelman.shadow' version '5.1.0'
 }
 
 dependencies {
@@ -25,7 +22,7 @@ compileJava {
         options.compilerArgs = [
                 '--module-path', classpath.asPath,
                 '--add-modules', 'javafx.controls',
-				'--add-modules', 'javafx.fxml'
+                '--add-modules', 'javafx.fxml'
         ]
     }
 }
@@ -48,7 +45,7 @@ tasks.withType(JavaCompile) {
 }
 
 javafx {
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
+    modules = ['javafx.controls', 'javafx.fxml']
 }
 
 sourceSets {

@@ -1,4 +1,5 @@
-package main.java.model;
+package model;
+
 
 import java.util.LinkedList;
 import java.util.List;
@@ -341,10 +342,5 @@ public class CTL {
 
     public boolean hasFourStates() {
         return fourStates;
-    }
-
-    // TODO REMOVE
-    public void setFormula(String formula) {
-        this.formula = formula;
     }
 }

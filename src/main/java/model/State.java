@@ -1,6 +1,9 @@
-package main.java.model;
+package model;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class State {
@@ -122,12 +125,5 @@ public class State {
     public void reset() {
         selected = false;
         correct = false;
-    }
-
-
-    // TODO REMOVE
-    public void setupForTest(List<Transition> transitions, Character... labelsss) {
-        this.transitions = transitions;
-        this.labels = Arrays.asList(labelsss);
     }
 }

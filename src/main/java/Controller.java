@@ -1,5 +1,3 @@
-package main.java;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -11,10 +9,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import main.java.model.CTL;
-import main.java.model.Formula;
-import main.java.model.State;
-import main.java.model.Transition;
+import model.CTL;
+import model.Formula;
+import model.State;
+import model.Transition;
 
 public class Controller {
     // important parts of the GUI
