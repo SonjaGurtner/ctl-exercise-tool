@@ -26,7 +26,7 @@ To run on windows using Java 11, if you also have Java 8 installed, use a comman
 similar to the following one:
 
     # <PATH TO JAVA.EXE> -jar <PATH TO CTL .jar>
-    "C:\Program Files\Java\jdk-11.0.2\bin\java.exe" -jar ctl-exercise-tool-all.jar
+    "C:\Program Files\Java\jdk-11.0.2\bin\java.exe" -jar ctl-exercise-tool.jar
     
 To run on linux use following command:
 
