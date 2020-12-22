@@ -12,7 +12,7 @@ The "New Formula" Button chooses a new formula from a set of available formulas 
 If you are not sure what the meaning of the formula is, you can mark the checkbox with the "Explain" label, which will display 
 an textual explanation with a formal definition, as well as an image. 
 The states in which you think the formula holds can be marked by clicking and will then be colored blue. Clicking again unmarks the state.
-Clicking the "Check Formula" Button will check in which states the formula holds. The regarding states will be marked green, or red if it does not hold.
+With the "Check Formula" Button you can check in which states the formula holds. The regarding states will be marked green, or red if it does not hold.
 Additionally a black outline shows which states were selected.
 A counter is increased for every state that is marked & correct, or not marked & incorrect.
 
@@ -26,7 +26,7 @@ To run on windows using Java 11, if you also have Java 8 installed, use a comman
 similar to the following one:
 
     # <PATH TO JAVA.EXE> -jar <PATH TO CTL .jar>
-    "C:\Program Files\Java\jdk-11.0.2\bin\java.exe" -jar ctl-exercise-tool-all.jar
+    "C:\Program Files\Java\jdk-11.0.2\bin\java.exe" -jar ctl-exercise-tool.jar
     
 To run on linux use following command:
 
