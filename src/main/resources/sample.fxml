@@ -6,19 +6,19 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
-    <Label fx:id="newA" layoutX="25.0" layoutY="30.0" text="Kripke Structure:">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+    <Label fx:id="newA" layoutX="25.0" layoutY="30.0" prefHeight="18.0" prefWidth="136.0" text="Kripke Structure:">
         <font>
             <Font size="14.0" />
         </font>
     </Label>
-    <Button fx:id="automaton4" layoutX="140.0" layoutY="28.0" mnemonicParsing="false" onAction="#generateAutomaton4" prefHeight="25.0" prefWidth="28.0" text="4" />
+    <Button fx:id="automaton4" layoutX="161.0" layoutY="28.0" mnemonicParsing="false" onAction="#generateAutomaton4" prefHeight="25.0" prefWidth="28.0" text="4" />
     <Button fx:id="newF" layoutX="25.0" layoutY="65.0" mnemonicParsing="false" onAction="#generateFormula" text="New Formula">
         <font>
             <Font size="14.0" />
         </font>
     </Button>
-    <Label fx:id="counterLabel" layoutX="25.0" layoutY="157.0" prefHeight="20.0" prefWidth="129.0" text="Correct Answers: 0">
+    <Label fx:id="counterLabel" layoutX="25.0" layoutY="157.0" prefHeight="20.0" prefWidth="191.0" text="Correct Answers: 0">
         <font>
             <Font size="14.0" />
         </font>
@@ -33,7 +33,7 @@
             <Font size="14.0" />
         </font>
     </Label>
-    <CheckBox fx:id="explainBox" layoutX="23.0" layoutY="248.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#explainFormula" prefHeight="25.0" prefWidth="75.0" text="Explain">
+    <CheckBox fx:id="explainBox" layoutX="23.0" layoutY="248.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#explainFormula" prefHeight="25.0" prefWidth="113.0" text="Explain">
         <font>
             <Font size="14.0" />
         </font>
@@ -44,15 +44,15 @@
         </font>
     </Label>
     <Canvas fx:id="canvas" height="278.0" layoutX="253.0" layoutY="1.0" onMouseClicked="#markState" width="355.0" />
-    <Button fx:id="automaton5" layoutX="180.0" layoutY="28.0" mnemonicParsing="false" onAction="#generateAutomaton5" prefHeight="25.0" prefWidth="28.0" text="5" />
+    <Button fx:id="automaton5" layoutX="201.0" layoutY="28.0" mnemonicParsing="false" onAction="#generateAutomaton5" prefHeight="25.0" prefWidth="28.0" text="5" />
     <ImageView fx:id="image" fitHeight="127.0" fitWidth="162.0" layoutX="435.0" layoutY="266.0" pickOnBounds="true" preserveRatio="true" />
     <Label fx:id="labelS0_4" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="259.0" layoutY="40.0" prefHeight="17.0" prefWidth="33.0" />
     <Label fx:id="labelS1_4" layoutX="515.0" layoutY="40.0" />
-    <Label fx:id="labelS3_4" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="259.0" layoutY="260.0" prefHeight="17.0" prefWidth="33.0" />
+    <Label fx:id="labelS3_4" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="242.0" layoutY="260.0" prefHeight="17.0" prefWidth="50.0" />
     <Label fx:id="labelS2_4" layoutX="515.0" layoutY="260.0" />
     <Label fx:id="labelS2_5" layoutX="475.0" layoutY="260.0" />
     <Label fx:id="labelS1_5" layoutX="515.0" layoutY="130.0" />
     <Label fx:id="labelS4_5" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="265.0" layoutY="130.0" prefHeight="17.0" prefWidth="33.0" />
-    <Label fx:id="labelS3_5" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="304.0" layoutY="260.0" prefHeight="17.0" prefWidth="33.0" />
+    <Label fx:id="labelS3_5" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="287.0" layoutY="260.0" prefHeight="17.0" prefWidth="50.0" />
     <Label fx:id="labelS0_5" layoutX="415.0" layoutY="15.0" />
 </AnchorPane>
