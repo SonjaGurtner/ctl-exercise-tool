@@ -7,12 +7,12 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
-    <Label fx:id="newA" layoutX="25.0" layoutY="30.0" text="New Kripke Structure:">
+    <Label fx:id="newA" layoutX="25.0" layoutY="30.0" text="Kripke Structure:">
         <font>
             <Font size="14.0" />
         </font>
     </Label>
-    <Button fx:id="automaton4" layoutX="167.0" layoutY="28.0" mnemonicParsing="false" onAction="#generateAutomaton4" prefHeight="25.0" prefWidth="28.0" text="4" />
+    <Button fx:id="automaton4" layoutX="140.0" layoutY="28.0" mnemonicParsing="false" onAction="#generateAutomaton4" prefHeight="25.0" prefWidth="28.0" text="4" />
     <Button fx:id="newF" layoutX="25.0" layoutY="65.0" mnemonicParsing="false" onAction="#generateFormula" text="New Formula">
         <font>
             <Font size="14.0" />
@@ -44,7 +44,7 @@
         </font>
     </Label>
     <Canvas fx:id="canvas" height="278.0" layoutX="253.0" layoutY="1.0" onMouseClicked="#markState" width="355.0" />
-    <Button fx:id="automaton5" layoutX="207.0" layoutY="28.0" mnemonicParsing="false" onAction="#generateAutomaton5" prefHeight="25.0" prefWidth="28.0" text="5" />
+    <Button fx:id="automaton5" layoutX="180.0" layoutY="28.0" mnemonicParsing="false" onAction="#generateAutomaton5" prefHeight="25.0" prefWidth="28.0" text="5" />
     <ImageView fx:id="image" fitHeight="127.0" fitWidth="162.0" layoutX="435.0" layoutY="266.0" pickOnBounds="true" preserveRatio="true" />
     <Label fx:id="labelS0_4" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="259.0" layoutY="40.0" prefHeight="17.0" prefWidth="33.0" />
     <Label fx:id="labelS1_4" layoutX="515.0" layoutY="40.0" />
